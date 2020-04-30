@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.MenuPrincipal">
+   <children>
+      <Pane layoutX="-6.0" prefHeight="352.0" prefWidth="278.0" style="-fx-background-color: B2F3EA;">
+         <children>
+            <Button fx:id="btnDonante" layoutX="32.0" layoutY="93.0" mnemonicParsing="false" onAction="#pantallaDonantes" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donantes">
+               <font>
+                  <Font name="Monospaced Bold" size="28.0" />
+               </font>
+            </Button>
+            <Label layoutX="-3.0" layoutY="21.0" prefHeight="41.0" prefWidth="286.0" text=" Aplicación Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+               <font>
+                  <Font name="Monospaced Bold Italic" size="21.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnDonacion" layoutX="32.0" layoutY="176.0" mnemonicParsing="false" onAction="#pantallaDonaciones" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donaciones">
+               <font>
+                  <Font name="Monospaced Bold" size="28.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnInformes" layoutX="32.0" layoutY="258.0" mnemonicParsing="false" onAction="#pantallaInformes" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Informes">
+               <font>
+                  <Font name="Monospaced Bold" size="28.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
