@@ -4,6 +4,7 @@ package Controlador;
 import java.io.IOException;
 
 import Vista.MenuPrincipal;
+import Vista.pantallaDonantes;
 import Controlador.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +48,27 @@ public class Main extends Application {
             e.printStackTrace();
         }
    }
+    public void mostrarVentanaSecundaria() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UIPantallaDonantes.fxml"));
+            AnchorPane ventanaDos = (AnchorPane) loader.load();
+            /* Creamos la segunda ventana como otro stage */
+            Stage ventana = new Stage();
+            ventana.setTitle("Pantalla Donantes");
+            /* Le decimos a la ventana quién es la ventana original */
+            ventana.initOwner(stagePrincipal);
+            Scene scene = new Scene(ventanaDos);
+            ventana.setScene(scene);
+
+            pantallaDonantes controller2 = loader.getController();
+            controller2.setStagePrincipal(ventana);
+
+            ventana.show();
+
+        } catch (Exception e) {
+            //tratar la excepción
+        }
+    }
 
 }
 

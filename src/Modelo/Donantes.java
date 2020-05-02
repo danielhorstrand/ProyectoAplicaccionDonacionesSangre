@@ -10,6 +10,7 @@ public class Donantes {
 	private String apellido2;
 	private String identificacion;
 	private String fecha_nacimiento;
+	private String pais_nacimiento;
 	private String direccion;
 	private String poblacion;
 	private int codigo_postal;
@@ -18,12 +19,12 @@ public class Donantes {
 	private File foto;
 	private String ciclo;
 	private String correo;
-	private boolean sexo;
+	private String sexo;
 	private String grupo_sanguineo;
 	
 	public Donantes(int num_donante, String nombre, String apellido1, String apellido2, String identificacion,
-			String fecha_nacimiento, String direccion, String poblacion, int codigo_postal, int telefono1,
-			int telefono2, File foto, String ciclo, String correo, boolean sexo, String grupo_sanguineo) {
+			String fecha_nacimiento,String pais_nacimiento, String direccion, String poblacion, int codigo_postal, int telefono1,
+			int telefono2, String ciclo, String correo, String sexo, String grupo_sanguineo) {
 		super();
 		this.num_donante = num_donante;
 		this.nombre = nombre;
@@ -31,6 +32,7 @@ public class Donantes {
 		this.apellido2 = apellido2;
 		this.identificacion = identificacion;
 		this.fecha_nacimiento = fecha_nacimiento;
+		this.pais_nacimiento = pais_nacimiento;
 		this.direccion = direccion;
 		this.poblacion = poblacion;
 		this.codigo_postal = codigo_postal;
@@ -155,11 +157,11 @@ public class Donantes {
 		this.correo = correo;
 	}
 
-	public boolean isSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(boolean sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 

@@ -70,6 +70,41 @@ public class ControladoraBBDD {
 
 		ObservableList<Donantes> listaDonantes =  FXCollections.observableArrayList();
 		
+		Statement stm = conexion.createStatement();
+		String selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM "+usr+".DONANTE";
+
+		ResultSet resultado = stm.executeQuery(selectsql);
+	
+		try{
+			while (resultado.next()) {
+				int num_donante = resultado.getInt(1);
+				String nombre = resultado.getString(2);
+				String apellido1 = resultado.getString(3);
+				String apellido2 = resultado.getString(4);
+				String identificacion = resultado.getString(5);
+				String fecha_nacimiento = resultado.getString(6);
+				String pais_nacimiento = resultado.getString(7);
+				String direccion = resultado.getString(8);
+				String poblacion = resultado.getString(9);
+				int cod_postal = resultado.getInt(10);
+				int telefono1 = resultado.getInt(11);
+				int telefono2 = resultado.getInt(12);
+				String ciclo = resultado.getString(13);
+				String correo = resultado.getString(14);
+				String sexo = resultado.getString(15);
+				String grupo_sanguineo = resultado.getString(16);
+
+				Donantes a = new Donantes (num_donante,nombre,apellido1,apellido2,identificacion,fecha_nacimiento,pais_nacimiento,direccion,poblacion,cod_postal,telefono1,telefono2,ciclo,correo,sexo,grupo_sanguineo);
+				listaDonantes.add(a);
+			}
+			
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
 		return listaDonantes;
 	}
 	public void guardarDonante(Donantes donante) throws SQLException{
