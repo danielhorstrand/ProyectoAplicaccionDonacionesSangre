@@ -4,13 +4,13 @@ package Controlador;
 import java.io.IOException;
 
 import Vista.MenuPrincipal;
+import Vista.PantallaDonaciones;
 import Vista.pantallaDonantes;
 import Controlador.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -48,7 +48,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
    }
-    public void mostrarVentanaSecundaria() {
+    public void mostrarVentanaDonantes() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UIPantallaDonantes.fxml"));
             AnchorPane ventanaDos = (AnchorPane) loader.load();
@@ -64,6 +64,27 @@ public class Main extends Application {
             controller2.setStagePrincipal(ventana);
 
             ventana.show();
+
+        } catch (Exception e) {
+            //tratar la excepción
+        }
+    }
+    public void mostrarVentanaDonaciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UIPantallaDonaciones.fxml"));
+            AnchorPane ventanaTres = (AnchorPane) loader.load();
+            /* Creamos la segunda ventana como otro stage */
+            Stage ventana2 = new Stage();
+            ventana2.setTitle("Pantalla Donaciones");
+            /* Le decimos a la ventana quién es la ventana original */
+            ventana2.initOwner(stagePrincipal);
+            Scene scene = new Scene(ventanaTres);
+            ventana2.setScene(scene);
+
+            PantallaDonaciones controller2 = loader.getController();
+            controller2.setStagePrincipal(ventana2);
+
+            ventana2.show();
 
         } catch (Exception e) {
             //tratar la excepción

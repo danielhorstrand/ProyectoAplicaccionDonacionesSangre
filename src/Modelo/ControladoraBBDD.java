@@ -2,10 +2,12 @@ package Modelo;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -107,11 +109,127 @@ public class ControladoraBBDD {
 		}
 		return listaDonantes;
 	}
-	public void guardarDonante(Donantes donante) throws SQLException{
-		
+	public int InsertarFoto(File archivofoto) throws SQLException{
+
+
+		//ejecuto la sentencia
+		try{
+			// Preparo la sentencia SQL
+			String insertsql = "INSERT INTO "+usr+".DONANTE (FOTO) VALUES (?)";
+			// Prepoparo la sentencia para ejecutar en la base de datos
+			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+
+			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
+			pstmt.setBlob(1, convertir_imagen, archivofoto.length());
+
+			int resultado = pstmt.executeUpdate();
+
+			if(resultado != 1)
+				System.out.println("Error en la inserción " + resultado);
+			else
+				System.out.println("Persona insertada con éxito!!!");
+
+
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			if(codeErrorSQL.equals("ORA-00001") ){
+				System.out.println("Ya existe una persona con  ese email!!");
+				return 1;
+			}
+			else{
+				System.out.println("Ha habido algún problema con  Oracle al hacer la insercion");
+				return 2;
+			}
+
+		}catch(FileNotFoundException FnfEx){
+			System.out.println("Fichero no existe");
+			return 3;
+		}
+
+		return 0;
 	}
-	public void modificarDonante(Donantes donante) throws SQLException{
+	public void guardarDonante (Donantes donante)  throws SQLException, FileNotFoundException{
 		
+		String rutafoto = donante.getFile().getPath();
+		Statement stm = conexion.createStatement();
+		File archivofoto = new File(rutafoto);
+		
+		try{
+			String insertsql = "INSERT INTO "+usr+".DONANTE VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+			pstmt.setInt(1, donante.getNum_donante());
+			pstmt.setString(2, donante.getNombre());
+			pstmt.setString(3, donante.getApellido1());
+			pstmt.setString(4, donante.getApellido2());
+			pstmt.setString(5, donante.getIdentificacion());
+			pstmt.setString(6, donante.getFecha_nacimiento());
+			pstmt.setString(7, donante.getPais_nacimiento());
+			pstmt.setString(8, donante.getDireccion());
+			pstmt.setString(9, donante.getPoblacion());
+			pstmt.setInt(10, donante.getCodigo_postal());
+			pstmt.setInt(11, donante.getTelefono1());
+			pstmt.setInt(12, donante.getTelefono2());
+			
+			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
+			
+			pstmt.setBlob(13, convertir_imagen, archivofoto.length());
+			pstmt.setString(14, donante.getCiclo());
+			pstmt.setString(15, donante.getCorreo());
+			pstmt.setString(16, donante.getSexo());
+			pstmt.setString(17, donante.getGrupo_sanguineo());
+
+			
+			int resultado = pstmt.executeUpdate();
+
+			if(resultado != 1){
+				System.out.println("Error en la inserción " + resultado);
+		}else{
+				System.out.println("Persona insertada con éxito!!!");
+		}
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+			System.out.println(codeErrorSQL);
+
+			if(codeErrorSQL.equals("ORA-00001") )
+				System.out.println("ERROR.La persona que intentas introducir ya existe, o su clave 'Email' ya esta inscrita!");
+			else
+				System.out.println("Ha habido algún problema con  Oracle al hacer la creación de tabla");
+		}
+
+	}
+
+    public void modificarDonante (Donantes donante1,Donantes donante2)  throws SQLException{
+		
+		Statement stm = conexion.createStatement();
+
+		try{
+			String insertsql = "UPDATE "+usr+".DONANTE SET NOMBRE=?, APELLIDO =?, EMAIL =?, SEXO =?, CASADO =? WHERE EMAIL=?";
+
+			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+			pstmt.setString(1, donante2.getNombre());
+			
+			int resultado = pstmt.executeUpdate();
+
+			System.out.println(resultado);
+			if(resultado != 1){
+				System.out.println("Error en la modificacion " + resultado);
+		}else{
+				System.out.println("Persona actualizada con éxito!!!");
+		}
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+	
 	}
 	public void eliminarDonante(Donantes donante) throws SQLException{
 		

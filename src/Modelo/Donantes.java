@@ -16,15 +16,17 @@ public class Donantes {
 	private int codigo_postal;
 	private int telefono1;
 	private int telefono2;
-	private File foto;
+	private File file;
 	private String ciclo;
 	private String correo;
 	private String sexo;
 	private String grupo_sanguineo;
 	
+	
+	
 	public Donantes(int num_donante, String nombre, String apellido1, String apellido2, String identificacion,
-			String fecha_nacimiento,String pais_nacimiento, String direccion, String poblacion, int codigo_postal, int telefono1,
-			int telefono2, String ciclo, String correo, String sexo, String grupo_sanguineo) {
+			String fecha_nacimiento, String pais_nacimiento, String direccion, String poblacion, int codigo_postal,
+			int telefono1, int telefono2, String ciclo, String correo, String sexo, String grupo_sanguineo) {
 		super();
 		this.num_donante = num_donante;
 		this.nombre = nombre;
@@ -38,11 +40,41 @@ public class Donantes {
 		this.codigo_postal = codigo_postal;
 		this.telefono1 = telefono1;
 		this.telefono2 = telefono2;
-		this.foto = foto;
 		this.ciclo = ciclo;
 		this.correo = correo;
 		this.sexo = sexo;
 		this.grupo_sanguineo = grupo_sanguineo;
+	}
+
+	public Donantes(int num_donante, String nombre, String apellido1, String apellido2, String identificacion,
+			String fecha_nacimiento,String pais_nacimiento, String direccion, String poblacion, int codigo_postal, int telefono1,
+			int telefono2,File file, String ciclo, String correo, String sexo, String grupo_sanguineo) {
+		super();
+		this.num_donante = num_donante;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.identificacion = identificacion;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.pais_nacimiento = pais_nacimiento;
+		this.direccion = direccion;
+		this.poblacion = poblacion;
+		this.codigo_postal = codigo_postal;
+		this.telefono1 = telefono1;
+		this.telefono2 = telefono2;
+		this.file = file;
+		this.ciclo = ciclo;
+		this.correo = correo;
+		this.sexo = sexo;
+		this.grupo_sanguineo = grupo_sanguineo;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	public int getNum_donante() {
@@ -92,7 +124,13 @@ public class Donantes {
 	public void setFecha_nacimiento(String fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
+	public String getPais_nacimiento() {
+		return pais_nacimiento;
+	}
 
+	public void setPais_nacimiento(String pais_nacimiento) {
+		this.pais_nacimiento = pais_nacimiento;
+	}
 	public String getDireccion() {
 		return direccion;
 	}
@@ -132,15 +170,6 @@ public class Donantes {
 	public void setTelefono2(int telefono2) {
 		this.telefono2 = telefono2;
 	}
-
-	public File getFoto() {
-		return foto;
-	}
-
-	public void setFoto(File foto) {
-		this.foto = foto;
-	}
-
 	public String getCiclo() {
 		return ciclo;
 	}

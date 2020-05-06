@@ -10,7 +10,7 @@
    <children>
       <Pane layoutX="-6.0" prefHeight="352.0" prefWidth="278.0" style="-fx-background-color: B2F3EA;">
          <children>
-            <Button fx:id="btnDonante" layoutX="32.0" layoutY="93.0" mnemonicParsing="false" onAction="#pantallaDonantes" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donantes">
+            <Button fx:id="btnDonante" layoutX="32.0" layoutY="83.0" mnemonicParsing="false" onAction="#pantallaDonantes" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donantes">
                <font>
                   <Font name="Monospaced Bold" size="28.0" />
                </font>
@@ -20,12 +20,12 @@
                   <Font name="Monospaced Bold Italic" size="21.0" />
                </font>
             </Label>
-            <Button fx:id="btnDonacion" layoutX="32.0" layoutY="176.0" mnemonicParsing="false" onAction="#pantallaDonaciones" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donaciones">
+            <Button fx:id="btnDonacion" layoutX="32.0" layoutY="168.0" mnemonicParsing="false" onAction="#pantallaDonaciones" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Donaciones">
                <font>
                   <Font name="Monospaced Bold" size="28.0" />
                </font>
             </Button>
-            <Button fx:id="btnInformes" layoutX="32.0" layoutY="258.0" mnemonicParsing="false" onAction="#pantallaInformes" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Informes">
+            <Button fx:id="btnInformes" layoutX="32.0" layoutY="258.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="214.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Informes">
                <font>
                   <Font name="Monospaced Bold" size="28.0" />
                </font>
