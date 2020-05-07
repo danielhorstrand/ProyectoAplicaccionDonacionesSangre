@@ -29,6 +29,10 @@ public class pantallaDonantes {
 	@FXML
 	private Button btnGuardar;
 	@FXML
+	private Button btnBorrar;
+	@FXML
+	private Button btnEliminar;
+	@FXML
 	private Button btnSeleccionar_Imagen;
 	
 	private Stage ventana;
@@ -107,10 +111,10 @@ public class pantallaDonantes {
 	@FXML
 	private TableColumn<Donantes,String> col_grupo_sanguineo;
 	
-	ObservableList<String> ciclos = FXCollections.observableArrayList("Informatica y comunicaciones","Servicios Administrativos","Servicios Comerciales","TEAS","SMR","Gestion Administrativa","Emergencias Sanitarias","Farmacia y parafarmacia","Anatomía Patológica","DAW","TEAS","Educacion Infantil");
-	ObservableList<String> paises = FXCollections.observableArrayList("ESPAÑA","ITALIA","FRANCIA","PORTUGAL","ALEMANIA","SUECIA","NORUEGA","UK","EEUU");
-	ObservableList<String> sexos = FXCollections.observableArrayList("H","M");
-	ObservableList<String> tipos_sanguineos = FXCollections.observableArrayList("AB+","AB-","A+","A-","B+","B-","0+","0-");
+	ObservableList<String> ciclos = FXCollections.observableArrayList("-------","Informatica y comunicaciones","Servicios Administrativos","Servicios Comerciales","TEAS","SMR","Gestion Administrativa","Emergencias Sanitarias","Farmacia y parafarmacia","Anatomía Patológica","DAW","TEAS","Educacion Infantil");
+	ObservableList<String> paises = FXCollections.observableArrayList("-------","ESPAÑA","ITALIA","FRANCIA","PORTUGAL","ALEMANIA","SUECIA","NORUEGA","UK","EEUU");
+	ObservableList<String> sexos = FXCollections.observableArrayList("-------","H","M");
+	ObservableList<String> tipos_sanguineos = FXCollections.observableArrayList("-------","AB+","AB-","A+","A-","B+","B-","0+","0-");
 	ObservableList<Donantes> datos = FXCollections.observableArrayList();
 	ObservableList<Donantes> datos2 = FXCollections.observableArrayList();
 	
@@ -125,6 +129,10 @@ public class pantallaDonantes {
 		Pais_nacimiento.setItems(paises);
 		Sexo.setItems(sexos);
 		Grupo_Sanguineo.setItems(tipos_sanguineos);
+		Ciclo.setValue("-------");
+        Grupo_Sanguineo.setValue("-------");
+		Sexo.setValue("-------");
+		Pais_nacimiento.setValue("-------");
 		con = new ControladoraBBDD ();
 		
 		datos = con.ConsultaPersonas();
@@ -207,7 +215,7 @@ public class pantallaDonantes {
     				editada.setNum_donante(Integer.parseInt(txtNum_donante.getText()));
     				editada.setNombre(txtNombre.getText());
     				editada.setApellido1(txtApellido1.getText());
-    				editada.setApellido2(txtApellido1.getText());
+    				editada.setApellido2(txtApellido2.getText());
     				editada.setIdentificacion(txtIdentificacion.getText());
     				editada.setFecha_nacimiento(txtFecha_nacimiento.getText());
     				editada.setPais_nacimiento(pais);
@@ -258,6 +266,26 @@ public class pantallaDonantes {
     			
     			}
 		
+	}
+	public void Borrar(){
+		txtNum_donante.setText("");
+		txtNombre.setText("");
+		txtApellido1.setText("");
+		txtApellido2.setText("");
+		txtIdentificacion.setText("");
+		txtFecha_nacimiento.setText("");
+		Pais_nacimiento.setValue("-------");
+		txtDireccion.setText("");
+		txtPoblacion.setText("");
+		txtCod_postal.setText("");
+		txtTelefono1.setText("");
+		txtTelefono2.setText("");
+		Ciclo.setValue("-------");
+        Grupo_Sanguineo.setValue("-------");
+		Sexo.setValue("-------");
+
+		edicion = false;
+		indiceedicion = 0;
 	}
 
 }
