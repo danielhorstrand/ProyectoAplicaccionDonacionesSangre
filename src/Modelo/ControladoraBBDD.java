@@ -204,16 +204,38 @@ public class ControladoraBBDD {
 
 	}
 
-    public void modificarDonante (Donantes donante1,Donantes donante2)  throws SQLException{
+    public void modificarDonante (Donantes donante1,Donantes donante2)  throws SQLException, FileNotFoundException{		
 		
 		Statement stm = conexion.createStatement();
+		
+    	String rutafoto = donante2.getFile().getPath();
+		File archivofoto = new File(rutafoto);
 
 		try{
-			String insertsql = "UPDATE "+usr+".DONANTE SET NOMBRE=?, APELLIDO =?, EMAIL =?, SEXO =?, CASADO =? WHERE EMAIL=?";
+			String insertsql = "UPDATE "+usr+".DONANTE SET NUM_DONANTE=?, NOMBRE=?, APELLIDO1=?, APELLIDO2=?, IDENTIFICACION=?, FECHA_NACIMIENTO=?, PAIS_NACIMIENTO=?, DIRECCION=?, POBLACION=?, CODIGO_POSTAL=?, TELEFONO=?, TELEFONO2=?,  CICLO=?, CORREO_ELECTRONICO=?, SEXO=?, GRUPO_SANGUINEO=? WHERE NUM_DONANTE=?";
 
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
-			pstmt.setString(1, donante2.getNombre());
+			pstmt.setInt(1, donante2.getNum_donante());
+			pstmt.setString(2, donante2.getNombre());
+			pstmt.setString(3, donante2.getApellido1());
+			pstmt.setString(4, donante2.getApellido2());
+			pstmt.setString(5, donante2.getIdentificacion());
+			pstmt.setString(6, donante2.getFecha_nacimiento());
+			pstmt.setString(7, donante2.getPais_nacimiento());
+			pstmt.setString(8, donante2.getDireccion());
+			pstmt.setString(9, donante2.getPoblacion());
+			pstmt.setInt(10, donante2.getCodigo_postal());
+			pstmt.setInt(11, donante2.getTelefono1());
+			pstmt.setInt(12, donante2.getTelefono2());
 			
+			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
+			
+			pstmt.setBlob(13, convertir_imagen, archivofoto.length());
+			pstmt.setString(14, donante2.getCiclo());
+			pstmt.setString(15, donante2.getCorreo());
+			pstmt.setString(16, donante2.getSexo());
+			pstmt.setString(17, donante2.getGrupo_sanguineo());
+			pstmt.setInt(18, donante1.getNum_donante());
 			int resultado = pstmt.executeUpdate();
 
 			System.out.println(resultado);

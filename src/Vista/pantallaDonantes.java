@@ -247,7 +247,7 @@ public class pantallaDonantes {
 	   	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
 	   	      	 		 alert.showAndWait();
 	   				     }else {
-	   				    	//modificarDonante();
+	   				    	con.modificarDonante(datos2.get(0),editada);
 						}
 	    				
 	    			}
