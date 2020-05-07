@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -206,65 +207,80 @@ public class pantallaDonantes {
 			String sangre = (String) Grupo_Sanguineo.getValue();
 			String pais = (String) Pais_nacimiento.getValue();
 			
-    			Donantes nuevo = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
-    			datos2.add(nuevo);
-    		
-    			if(edicion == true){
-    				
-    				Donantes editada = datos.get(indiceedicion);
-    				editada.setNum_donante(Integer.parseInt(txtNum_donante.getText()));
-    				editada.setNombre(txtNombre.getText());
-    				editada.setApellido1(txtApellido1.getText());
-    				editada.setApellido2(txtApellido2.getText());
-    				editada.setIdentificacion(txtIdentificacion.getText());
-    				editada.setFecha_nacimiento(txtFecha_nacimiento.getText());
-    				editada.setPais_nacimiento(pais);
-    				editada.setDireccion(txtDireccion.getText());
-    				editada.setPoblacion(txtPoblacion.getText());
-    				editada.setCodigo_postal(Integer.parseInt(txtCod_postal.getText()));
-    				editada.setTelefono1(Integer.parseInt(txtTelefono1.getText()));
-    				editada.setTelefono2(Integer.parseInt(txtTelefono2.getText()));
-    				editada.setCiclo(ciclo1);
-    				editada.setCorreo(txtCorreo.getText());
-    				editada.setSexo(sexo);
-    				editada.setGrupo_sanguineo(sangre);
-    				
-    				datos.set(indiceedicion, editada);
-    				
-    				if(datos.contains(txtNum_donante.getText())==true){
-   	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
-   	      	 	     alert.setTitle("ERROR.Persona existente.");
-   	      	 		 alert.setHeaderText(null);
-   	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
-   	      	 		 alert.showAndWait();
-   				     }else {
-   				    	//modificarDonante();
-					}
-    				
-    			}
-    			else{
-    				Donantes nuevo2 = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
-    				boolean num_donante_test = false;
-    				for(int i=0;i<datos.size();i++){
-    					if(datos.get(i).getNum_donante()==nuevo.getNum_donante()){
-    						num_donante_test = true;
+			if(txtNum_donante.getText().length()==0 || txtNombre.getText().length()==0 || txtApellido1.getText().length()==0 || txtApellido2.getText().length()==0 || txtIdentificacion.getText().length()==0 || txtFecha_nacimiento.getText().length()==0 || pais.equals("-------")==true || txtDireccion.getText().length()==0 || txtPoblacion.getText().length()==0 || txtCod_postal.getText().length()==0 || txtTelefono1.getText().length()==0 || txtTelefono2.getText().length()==0 || ciclo1.equals("-------")==true || txtCorreo.getText().length()==0 || sexo.equals("-------")==true || sangre.equals("-------")==true){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error!!!");
+				alert.setHeaderText("Observa que hayas introducido todos los datos");
+				alert.setContentText("¡No se pueden grabar campos vacíos!");
+				alert.showAndWait();
+			}
+			else{
+					Donantes nuevo = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
+	    			datos2.add(nuevo);
+	    		
+	    			if(edicion == true){
+	    				
+	    				Donantes editada = datos.get(indiceedicion);
+	    				editada.setNum_donante(Integer.parseInt(txtNum_donante.getText()));
+	    				editada.setNombre(txtNombre.getText());
+	    				editada.setApellido1(txtApellido1.getText());
+	    				editada.setApellido2(txtApellido2.getText());
+	    				editada.setIdentificacion(txtIdentificacion.getText());
+	    				editada.setFecha_nacimiento(txtFecha_nacimiento.getText());
+	    				editada.setPais_nacimiento(pais);
+	    				editada.setDireccion(txtDireccion.getText());
+	    				editada.setPoblacion(txtPoblacion.getText());
+	    				editada.setCodigo_postal(Integer.parseInt(txtCod_postal.getText()));
+	    				editada.setTelefono1(Integer.parseInt(txtTelefono1.getText()));
+	    				editada.setTelefono2(Integer.parseInt(txtTelefono2.getText()));
+	    				editada.setCiclo(ciclo1);
+	    				editada.setCorreo(txtCorreo.getText());
+	    				editada.setSexo(sexo);
+	    				editada.setGrupo_sanguineo(sangre);
+	    				
+	    				datos.set(indiceedicion, editada);
+	    				
+	    				if(datos.contains(txtNum_donante.getText())==true){
+	   	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
+	   	      	 	     alert.setTitle("ERROR.Persona existente.");
+	   	      	 		 alert.setHeaderText(null);
+	   	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
+	   	      	 		 alert.showAndWait();
+	   				     }else {
+	   				    	//modificarDonante();
+						}
+	    				
+	    			}
+	    			else{
+    					try{
+    	    				Donantes nuevo2 = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
+    	    				boolean num_donante_test = false;
+    	    				for(int i=0;i<datos.size();i++){
+    	    					if(datos.get(i).getNum_donante()==nuevo.getNum_donante()){
+    	    						num_donante_test = true;
+    	    					}
+    	    				}
+    	    				if(num_donante_test==true){
+    	      	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
+    	       	      	 	     alert.setTitle("ERROR.Persona existente.");
+    	       	      	 		 alert.setHeaderText(null);
+    	       	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
+    	       	      	 		 alert.showAndWait();
+    	    				}else {
+    		        			con.guardarDonante (nuevo);
+    		        			if(txtf_ruta.getText()!=""){
+    		        				con.InsertarFoto(file);
+    		        			}
+    		        			datos.add(nuevo);
     					}
-    				}
-    				if(num_donante_test==true){
-      	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
-       	      	 	     alert.setTitle("ERROR.Persona existente.");
-       	      	 		 alert.setHeaderText(null);
-       	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
-       	      	 		 alert.showAndWait();
-    				}else {
-        				con.guardarDonante (nuevo);
-        				if(txtf_ruta.getText()!=""){
-        					con.InsertarFoto(file);
-        				}
-        				datos.add(nuevo);
-					}
-    			
+    					}catch (NumberFormatException e){
+    						  Alert alert = new Alert (Alert.AlertType.ERROR);
+    						  alert.setContentText("Introduce numeros");
+    						  alert.showAndWait();
+    					}
+   			
     			}
+			}
 		
 	}
 	public void Borrar(){
@@ -281,11 +297,49 @@ public class pantallaDonantes {
 		txtTelefono1.setText("");
 		txtTelefono2.setText("");
 		Ciclo.setValue("-------");
+		txtCorreo.setText("");
         Grupo_Sanguineo.setValue("-------");
 		Sexo.setValue("-------");
 
 		edicion = false;
 		indiceedicion = 0;
+	}
+	public void Editar() throws SQLException{
+
+		int index = tabla.getSelectionModel().getSelectedIndex();
+
+
+		if( index >= 0){
+
+			// Activo la "funcionalidad" de editar para luego que el botón guardar sepa a qué PErsona estoy "editando"
+			edicion = true;
+			indiceedicion = index;
+
+			Donantes seleccionada = tabla.getSelectionModel().getSelectedItem();
+
+			int num_donante =  seleccionada.getNum_donante();
+			int telefono1 = seleccionada.getTelefono1();
+			int telefono2 = seleccionada.getTelefono2();
+			int cod_postal = seleccionada.getCodigo_postal();
+
+
+			txtNum_donante.setText(""+num_donante+"");
+			txtNombre.setText(seleccionada.getNombre());
+			txtApellido1.setText(seleccionada.getApellido1());
+			txtApellido2.setText(seleccionada.getApellido2());
+			txtIdentificacion.setText(seleccionada.getIdentificacion());
+			txtFecha_nacimiento.setText(seleccionada.getFecha_nacimiento());
+			Pais_nacimiento.setValue(seleccionada.getPais_nacimiento());
+			txtDireccion.setText(seleccionada.getDireccion());
+			txtPoblacion.setText(seleccionada.getPoblacion());
+			txtCod_postal.setText(""+cod_postal+"");
+			txtTelefono1.setText(""+telefono1+"");
+			txtTelefono2.setText(""+telefono2+"");
+			Ciclo.setValue(seleccionada.getCiclo());
+	        Grupo_Sanguineo.setValue(seleccionada.getGrupo_sanguineo());
+	        txtCorreo.setText(seleccionada.getCorreo());
+			Sexo.setValue(seleccionada.getSexo());
+		}
 	}
 
 }
