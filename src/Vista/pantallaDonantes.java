@@ -136,7 +136,7 @@ public class pantallaDonantes {
 		Pais_nacimiento.setValue("-------");
 		con = new ControladoraBBDD ();
 		
-		datos = con.ConsultaPersonas();
+		datos = con.ConsultaDonantes();
 		tabla.setItems(datos);
 		
 		col_num_donante.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("num_donante"));
@@ -191,10 +191,8 @@ public class pantallaDonantes {
 
 
 	}
-	public void Guardar() throws SQLException, FileNotFoundException{
-
-		con = new ControladoraBBDD ();
-		
+	public void Guardar() throws SQLException{
+	
 			int num_donante =  Integer.parseInt(txtNum_donante.getText());
 			int telefono1 = Integer.parseInt(txtTelefono1.getText());
 			int telefono2 = Integer.parseInt(txtTelefono2.getText());
@@ -212,75 +210,76 @@ public class pantallaDonantes {
 				alert.showAndWait();
 			}
 			else{
-				
-			
-					Donantes nuevo = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
-	    			datos2.add(nuevo);	    		
-	    			
-	    			if(edicion == true){
+		    			    			
+	    		if(edicion == true){
 	    				
-	    				Donantes editada = datos.get(indiceedicion);
-	    				editada.setNum_donante(Integer.parseInt(txtNum_donante.getText()));
-	    				editada.setNombre(txtNombre.getText());
-	    				editada.setApellido1(txtApellido1.getText());
-	    				editada.setApellido2(txtApellido2.getText());
-	    				editada.setIdentificacion(txtIdentificacion.getText());
-	    				editada.setFecha_nacimiento(txtFecha_nacimiento.getText());
-	    				editada.setPais_nacimiento(pais);
-	    				editada.setDireccion(txtDireccion.getText());
-	    				editada.setPoblacion(txtPoblacion.getText());
-	    				editada.setCodigo_postal(Integer.parseInt(txtCod_postal.getText()));
-	    				editada.setTelefono1(Integer.parseInt(txtTelefono1.getText()));
-	    				editada.setTelefono2(Integer.parseInt(txtTelefono2.getText()));
-	    				editada.setCiclo(ciclo1);
-	    				editada.setCorreo(txtCorreo.getText());
-	    				editada.setSexo(sexo);
-	    				editada.setGrupo_sanguineo(sangre);
+	    			ControladoraBBDD con = new ControladoraBBDD();
+					Donantes donantecambio = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,ciclo1,txtCorreo.getText(),sexo,sangre);
 	    				
-	    				datos.set(indiceedicion, editada);
+	    			int res = con.modificarDonante(donantecambio);
 	    				
-	    				if(datos.contains(txtNum_donante.getText())==true){
-	   	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
-	   	      	 	     alert.setTitle("ERROR.Persona existente.");
-	   	      	 		 alert.setHeaderText(null);
-	   	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
-	   	      	 		 alert.showAndWait();
-	   				     }else {
-	   				    	con.modificarDonante(datos2.get(0),editada);
-						}
-	    				
+	    			switch (res){
+
+					case 0:
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("OK!");
+						alert.setHeaderText("Modificación OK!");
+						alert.setContentText("¡Donante modificado con éxito!");
+						alert.showAndWait();
+						// Actualizo los datos de la tabla
+						datos = con.ConsultaDonantes();
+						tabla.setItems(datos);
+						break;
+
+					default:
+							alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error!");
+							alert.setHeaderText("Modificación ERROR!");
+							alert.setContentText("¡Ha habido un problema al realizar el update!");
+							alert.showAndWait();
+							break;
+
+						}    				
 	    			}
 	    			else{
 	    				
-    					try{
-    	    				Donantes nuevo2 = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
-    	    				
-    	    				boolean num_donante_test = false;
-    	    				for(int i=0;i<datos.size();i++){
-    	    					if(datos.get(i).getNum_donante()==nuevo.getNum_donante()){
-    	    						num_donante_test = true;
-    	    					}
-    	    				}
-    	    				if(num_donante_test==true){
-    	      	      	 	     Alert alert = new Alert (Alert.AlertType.ERROR);
-    	       	      	 	     alert.setTitle("ERROR.Persona existente.");
-    	       	      	 		 alert.setHeaderText(null);
-    	       	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
-    	       	      	 		 alert.showAndWait();
-    	    				}else {
-    		        			con.guardarDonante (nuevo2);
-    		        			if(txtf_ruta.getText()!=""){
-    		        				con.InsertarFoto(file);
-    		        			}
-    		        			datos.add(nuevo);
+
+	    				Donantes nuevo = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,ciclo1,txtCorreo.getText(),sexo,sangre);
+
+    					int res = con.guardarDonante(nuevo);
+    					
+    					switch (res){
+
+    					case 0:
+    						Alert alert = new Alert(AlertType.INFORMATION);
+    						alert.setTitle("OK!");
+    						alert.setHeaderText("Inserción OK!");
+    						alert.setContentText("¡Donante insertado con éxito!");
+    						alert.showAndWait();
+
+    						// Actualizo los datos de la tabla
+    						datos = con.ConsultaDonantes();
+    						tabla.setItems(datos);
+    						break;
+
+    					case 1:
+    						alert = new Alert(AlertType.WARNING);
+    						alert.setTitle("Aviso!");
+    						alert.setHeaderText("Inserción ERROR!");
+    						alert.setContentText("¡Ya existe un Donante con ese num_donante!");
+    						alert.showAndWait();
+    						break;
+
+    					default:
+    						alert = new Alert(AlertType.ERROR);
+    						alert.setTitle("Error!");
+    						alert.setHeaderText("Inserción NOK!");
+    						alert.setContentText("¡Ha habido un problema al realizar la inserción!");
+    						alert.showAndWait();
+    						break;
+
     					}
-    					}catch (NumberFormatException e){
-    						  Alert alert = new Alert (Alert.AlertType.ERROR);
-    						  alert.setContentText("Introduce numeros");
-    						  alert.showAndWait();
-    					}
-   			
-    			}
+	    			}
 			}
 		
 	}

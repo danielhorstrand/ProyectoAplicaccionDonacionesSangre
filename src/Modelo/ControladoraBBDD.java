@@ -67,7 +67,7 @@ public class ControladoraBBDD {
 			e.printStackTrace();
 		}
 	}
-	public ObservableList<Donantes>  ConsultaPersonas() throws SQLException{
+	public ObservableList<Donantes>  ConsultaDonantes() throws SQLException{
 		//Preparo la conexión para ejecutar sentencias SQL de tipo update
 
 		ObservableList<Donantes> listaDonantes =  FXCollections.observableArrayList();
@@ -151,14 +151,9 @@ public class ControladoraBBDD {
 
 		return 0;
 	}
-	public void guardarDonante (Donantes donante)  throws SQLException, FileNotFoundException{
+	public int guardarDonante (Donantes donante)  throws SQLException{
 		
-		String rutafoto = donante.getFile().getPath();
-		Statement stm = conexion.createStatement();
-		File archivofoto = new File(rutafoto);
-		
-		try{
-			String insertsql = "INSERT INTO "+usr+".DONANTE VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			pstmt.setInt(1, donante.getNum_donante());
@@ -173,83 +168,84 @@ public class ControladoraBBDD {
 			pstmt.setInt(10, donante.getCodigo_postal());
 			pstmt.setInt(11, donante.getTelefono1());
 			pstmt.setInt(12, donante.getTelefono2());
-			
-			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
-			
-			pstmt.setBlob(13, convertir_imagen, archivofoto.length());
-			pstmt.setString(14, donante.getCiclo());
-			pstmt.setString(15, donante.getCorreo());
-			pstmt.setString(16, donante.getSexo());
-			pstmt.setString(17, donante.getGrupo_sanguineo());
+			pstmt.setString(13, donante.getCiclo());
+			pstmt.setString(14, donante.getCorreo());
+			pstmt.setString(15, donante.getSexo());
+			pstmt.setString(16, donante.getGrupo_sanguineo());
 
-			
+		
+		try{
 			int resultado = pstmt.executeUpdate();
 
-			if(resultado != 1){
+			if(resultado != 1)
 				System.out.println("Error en la inserción " + resultado);
-		}else{
+		    else
 				System.out.println("Persona insertada con éxito!!!");
-		}
+		
+			return 0;
 		}catch(SQLException sqle){
 
 			int pos = sqle.getMessage().indexOf(":");
 			String codeErrorSQL = sqle.getMessage().substring(0,pos);
 			System.out.println(codeErrorSQL);
 
-			if(codeErrorSQL.equals("ORA-00001") )
+			if(codeErrorSQL.equals("ORA-00001")){
 				System.out.println("ERROR.La persona que intentas introducir ya existe, o su clave 'Email' ya esta inscrita!");
-			else
+			    return 1;
+			}
+			else{
 				System.out.println("Ha habido algún problema con  Oracle al hacer la creación de tabla");
+			    return 2;
+			}
 		}
 
 	}
 
-    public void modificarDonante (Donantes donante1,Donantes donante2)  throws SQLException, FileNotFoundException{		
+    public int modificarDonante (Donantes donante)  throws SQLException{		
 		
 		Statement stm = conexion.createStatement();
 		
-    	String rutafoto = donante2.getFile().getPath();
-		File archivofoto = new File(rutafoto);
-
-		try{
-			String insertsql = "UPDATE "+usr+".DONANTE SET NUM_DONANTE=?, NOMBRE=?, APELLIDO1=?, APELLIDO2=?, IDENTIFICACION=?, FECHA_NACIMIENTO=?, PAIS_NACIMIENTO=?, DIRECCION=?, POBLACION=?, CODIGO_POSTAL=?, TELEFONO=?, TELEFONO2=?,  CICLO=?, CORREO_ELECTRONICO=?, SEXO=?, GRUPO_SANGUINEO=? WHERE NUM_DONANTE=?";
+			String insertsql = "UPDATE "+usr+".DONANTE SET NOMBRE=?, APELLIDO1=?, APELLIDO2=?, IDENTIFICACION=?, FECHA_NACIMIENTO=?, PAIS_NACIMIENTO=?, DIRECCION=?, POBLACION=?, CODIGO_POSTAL=?, TELEFONO=?, TELEFONO2=?,  CICLO=?, CORREO_ELECTRONICO=?, SEXO=?, GRUPO_SANGUINEO=? WHERE NUM_DONANTE=?";
 
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
-			pstmt.setInt(1, donante2.getNum_donante());
-			pstmt.setString(2, donante2.getNombre());
-			pstmt.setString(3, donante2.getApellido1());
-			pstmt.setString(4, donante2.getApellido2());
-			pstmt.setString(5, donante2.getIdentificacion());
-			pstmt.setString(6, donante2.getFecha_nacimiento());
-			pstmt.setString(7, donante2.getPais_nacimiento());
-			pstmt.setString(8, donante2.getDireccion());
-			pstmt.setString(9, donante2.getPoblacion());
-			pstmt.setInt(10, donante2.getCodigo_postal());
-			pstmt.setInt(11, donante2.getTelefono1());
-			pstmt.setInt(12, donante2.getTelefono2());
-			
-			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
-			
-			pstmt.setBlob(13, convertir_imagen, archivofoto.length());
-			pstmt.setString(14, donante2.getCiclo());
-			pstmt.setString(15, donante2.getCorreo());
-			pstmt.setString(16, donante2.getSexo());
-			pstmt.setString(17, donante2.getGrupo_sanguineo());
-			pstmt.setInt(18, donante1.getNum_donante());
-			int resultado = pstmt.executeUpdate();
+			pstmt.setString(1, donante.getNombre());
+			pstmt.setString(2, donante.getApellido1());
+			pstmt.setString(3, donante.getApellido2());
+			pstmt.setString(4, donante.getIdentificacion());
+			pstmt.setString(5, donante.getFecha_nacimiento());
+			pstmt.setString(6, donante.getPais_nacimiento());
+			pstmt.setString(7, donante.getDireccion());
+			pstmt.setString(8, donante.getPoblacion());
+			pstmt.setInt(9, donante.getCodigo_postal());
+			pstmt.setInt(10, donante.getTelefono1());
+			pstmt.setInt(11, donante.getTelefono2());
+			pstmt.setString(12, donante.getCiclo());
+			pstmt.setString(13, donante.getCorreo());
+			pstmt.setString(14, donante.getSexo());
+			pstmt.setString(15, donante.getGrupo_sanguineo());
+			pstmt.setInt(16, donante.getNum_donante());
 
-			System.out.println(resultado);
-			if(resultado != 1){
-				System.out.println("Error en la modificacion " + resultado);
-		}else{
-				System.out.println("Persona actualizada con éxito!!!");
-		}
-		}catch(SQLException sqle){
+			try{
+				int resultado = pstmt.executeUpdate();
+				if(resultado != 1)
+					System.out.println("Error en la modificacion " + resultado);
+			    else
+					System.out.println("Donante actualizado con éxito!!!");
 
-			int pos = sqle.getMessage().indexOf(":");
-			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+				return 0;
+			}catch(SQLException sqle){
+				
+				int pos = sqle.getMessage().indexOf(":");
+				String codeErrorSQL = sqle.getMessage().substring(0,pos);
 
-			System.out.println(codeErrorSQL);
+				if(codeErrorSQL.equals("ORA-00001") ){
+					System.out.println("Ya existe una Donante con  ese Numero!!");
+					return 1;
+				}
+				else{
+					System.out.println("Ha habido algún problema con  Oracle al hacer la insercion");
+					return 2;
+				}
 		}
 	
 	}
