@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Optional;
+
+import com.itextpdf.text.DocumentException;
+
 import Modelo.ControladoraBBDD;
 import Modelo.Donantes;
+import Modelo.ImprimeArchivo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +39,10 @@ public class pantallaDonantes {
 	@FXML
 	private Button btnEliminar;
 	@FXML
+	private Button btnBuscar;
+	@FXML
+	private Button btnImprimirPDF;
+	@FXML
 	private Button btnSeleccionar_Imagen;
 	
 	private Stage ventana;
@@ -49,6 +57,8 @@ public class pantallaDonantes {
 	private TextField txtApellido2;
 	@FXML
 	private TextField txtIdentificacion;
+	@FXML
+	private TextField txtIdentificacionBusqueda;
 	@FXML
 	private TextField txtFecha_nacimiento;
 	@FXML
@@ -68,9 +78,13 @@ public class pantallaDonantes {
 	@FXML
 	private ChoiceBox Ciclo;
 	@FXML
+	private ChoiceBox CicloBusqueda;
+	@FXML
 	private TextField txtCorreo;
 	@FXML
 	private ChoiceBox Grupo_Sanguineo;
+	@FXML
+	private ChoiceBox Grupo_SanguineoBusqueda;
 	@FXML
 	private ChoiceBox Pais_nacimiento;
 	@FXML
@@ -128,11 +142,15 @@ public class pantallaDonantes {
 	public void initialize () throws SQLException{
 		
 		Ciclo.setItems(ciclos);
+		CicloBusqueda.setItems(ciclos);
 		Pais_nacimiento.setItems(paises);
 		Sexo.setItems(sexos);
 		Grupo_Sanguineo.setItems(tipos_sanguineos);
+		Grupo_SanguineoBusqueda.setItems(tipos_sanguineos);
 		Ciclo.setValue("-------");
+		CicloBusqueda.setValue("-------");
         Grupo_Sanguineo.setValue("-------");
+        Grupo_SanguineoBusqueda.setValue("-------");
 		Sexo.setValue("-------");
 		Pais_nacimiento.setValue("-------");
 		con = new ControladoraBBDD ();
@@ -393,6 +411,24 @@ public class pantallaDonantes {
 			alert.showAndWait();
 
 		}
+	}
+	public void BuscarDonante() throws SQLException{
+		
+		String buscarIdentificacion = txtIdentificacionBusqueda.getText();
+		String buscarCiclo = (String) CicloBusqueda.getValue();
+		String buscarSangre = (String) Grupo_SanguineoBusqueda.getValue();
+
+		ControladoraBBDD con = new ControladoraBBDD();
+		datos = con.BuscarDonantes(buscarIdentificacion,buscarCiclo,buscarSangre);
+
+		tabla.setItems(datos);
+	}
+	public void imprime() throws FileNotFoundException, DocumentException{
+
+		String sangre = (String) Grupo_Sanguineo.getValue();
+		ImprimeArchivo imprime = new ImprimeArchivo("archivo","C:\\Users\\danie\\Downloads\\");
+		imprime.generarArchivoPDF(txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),sangre,txtIdentificacion.getText());
+
 	}
 
 }
