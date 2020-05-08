@@ -150,9 +150,7 @@ public class pantallaDonantes {
 		col_poblacion.setCellValueFactory(new PropertyValueFactory<Donantes,String>("poblacion"));
 		col_cod_postal.setCellValueFactory(new PropertyValueFactory<Donantes,String>("codigo_postal"));
 		col_telefono1.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("telefono1"));
-		col_telefono2.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("telefono2"));
 		col_ciclo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("ciclo"));
-		col_correo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("correo"));
 		col_sexo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("sexo"));
 		col_grupo_sanguineo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("grupo_sanguineo"));
 
@@ -170,7 +168,7 @@ public class pantallaDonantes {
 		this.ventana.close();
 	}
 
-	public void seleccionarimagen(){
+	public void seleccionarimagen() throws SQLException{
 
 
 		// muestra el cuadro de diálogo de archivos, para que el usuario pueda elegir el archivo a abrir
@@ -188,10 +186,9 @@ public class pantallaDonantes {
 
 		 // Obtener el archivo seleccionado
 		 file = fileChooser.showOpenDialog(stage);
-
-		 txtf_ruta.setText(file.getPath());
 		 
-		 foto.setId(file.getPath());
+		 txtf_ruta.setText(file.getPath());
+
 
 	}
 	public void Guardar() throws SQLException, FileNotFoundException{
@@ -215,9 +212,11 @@ public class pantallaDonantes {
 				alert.showAndWait();
 			}
 			else{
+				
+			
 					Donantes nuevo = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
-	    			datos2.add(nuevo);
-	    		
+	    			datos2.add(nuevo);	    		
+	    			
 	    			if(edicion == true){
 	    				
 	    				Donantes editada = datos.get(indiceedicion);
@@ -252,8 +251,10 @@ public class pantallaDonantes {
 	    				
 	    			}
 	    			else{
+	    				
     					try{
     	    				Donantes nuevo2 = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,file,ciclo1,txtCorreo.getText(),sexo,sangre);
+    	    				
     	    				boolean num_donante_test = false;
     	    				for(int i=0;i<datos.size();i++){
     	    					if(datos.get(i).getNum_donante()==nuevo.getNum_donante()){
@@ -267,7 +268,7 @@ public class pantallaDonantes {
     	       	      	 		 alert.setContentText("Esta persona ya existe, o la clave 'Email' ya existe para otra persona.");
     	       	      	 		 alert.showAndWait();
     	    				}else {
-    		        			con.guardarDonante (nuevo);
+    		        			con.guardarDonante (nuevo2);
     		        			if(txtf_ruta.getText()!=""){
     		        				con.InsertarFoto(file);
     		        			}

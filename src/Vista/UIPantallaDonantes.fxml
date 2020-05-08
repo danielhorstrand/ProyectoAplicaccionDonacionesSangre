@@ -13,7 +13,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.pantallaDonantes">
    <children>
-      <Pane prefHeight="334.0" prefWidth="1462.0" style="-fx-background-color: B2F3EA;">
+      <Pane prefHeight="334.0" prefWidth="1417.0" style="-fx-background-color: B2F3EA;">
          <children>
             <Label prefHeight="41.0" prefWidth="286.0" text=" Aplicación Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                <font>
@@ -117,37 +117,37 @@
             <TextField fx:id="txtFecha_nacimiento" layoutX="276.0" layoutY="231.0" prefHeight="25.0" prefWidth="250.0" />
             <TextField fx:id="txtDireccion" layoutX="739.0" layoutY="56.0" prefHeight="25.0" prefWidth="230.0" />
             <TextField fx:id="txtCorreo" layoutX="740.0" layoutY="122.0" prefHeight="25.0" prefWidth="230.0" />
-            <ImageView fx:id="foto" fitHeight="252.0" fitWidth="286.0" layoutX="1091.0" layoutY="31.0" onDragDetected="#seleccionarimagen" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="foto" fitHeight="252.0" fitWidth="286.0" layoutX="1020.0" layoutY="39.0" onDragDetected="#Guardar" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="btnBorrar" layoutX="893.0" layoutY="303.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="17.0" prefWidth="96.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Borrar" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="11.0" />
                </font>
             </Button>
-            <Button fx:id="btnSeleccionar_Imagen" layoutX="1047.0" layoutY="303.0" mnemonicParsing="false" onAction="#seleccionarimagen" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Seleccionar Imagen" textAlignment="CENTER">
+            <Button fx:id="btnSeleccionar_Imagen" layoutX="1229.0" layoutY="303.0" mnemonicParsing="false" onAction="#seleccionarimagen" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Seleccionar Imagen" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="11.0" />
                </font>
             </Button>
-            <TextField fx:id="txtf_ruta" layoutX="1218.0" layoutY="303.0" prefHeight="25.0" prefWidth="230.0" />
+            <TextField fx:id="txtf_ruta" layoutX="1020.0" layoutY="303.0" prefHeight="25.0" prefWidth="200.0" />
             <ChoiceBox fx:id="Ciclo" layoutX="400.0" layoutY="56.0" prefHeight="25.0" prefWidth="127.0" />
             <ChoiceBox fx:id="Pais_nacimiento" layoutX="276.0" layoutY="262.0" prefHeight="25.0" prefWidth="159.0" />
             <ChoiceBox fx:id="Sexo" layoutX="742.0" layoutY="304.0" prefHeight="25.0" prefWidth="114.0" />
             <ChoiceBox fx:id="Grupo_Sanguineo" layoutX="742.0" layoutY="157.0" prefHeight="25.0" prefWidth="230.0" />
          </children>
       </Pane>
-      <Pane layoutY="334.0" prefHeight="587.0" prefWidth="1462.0" style="-fx-background-color: B2F3EA;">
+      <Pane layoutY="334.0" prefHeight="506.0" prefWidth="1417.0" style="-fx-background-color: B2F3EA;">
          <children>
-            <Button layoutX="1191.0" layoutY="501.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Modificar" textAlignment="CENTER">
+            <Button layoutX="1279.0" layoutY="345.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Modificar" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnVolver" layoutX="1359.0" layoutY="548.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Volver" textAlignment="CENTER">
+            <Button fx:id="btnVolver" layoutX="1279.0" layoutY="447.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Volver" textAlignment="CENTER">
                <font>
-                  <Font name="Monospaced Bold" size="12.0" />
+                  <Font name="Monospaced Bold" size="18.0" />
                </font>
             </Button>
-            <TableView fx:id="tabla" layoutX="10.0" layoutY="39.0" onMouseClicked="#Editar" onSort="#initialize" prefHeight="449.0" prefWidth="1435.0">
+            <TableView fx:id="tabla" layoutX="10.0" layoutY="39.0" onMouseClicked="#Editar" onSort="#initialize" prefHeight="449.0" prefWidth="1261.0">
                <columns>
                   <TableColumn fx:id="col_num_donante" prefWidth="72.0" text="Nº Donante" />
                   <TableColumn fx:id="col_nombre" prefWidth="93.0" text="Nombre" />
@@ -160,24 +160,22 @@
                   <TableColumn fx:id="col_poblacion" prefWidth="93.0" text="Población" />
                   <TableColumn fx:id="col_cod_postal" prefWidth="115.0" text="Cod Postal" />
                   <TableColumn fx:id="col_telefono1" prefWidth="94.0" text="Telefono 1" />
-                  <TableColumn fx:id="col_telefono2" prefWidth="85.0" text="Telefono 2" />
                   <TableColumn fx:id="col_ciclo" prefWidth="63.0" text="Ciclo" />
-                  <TableColumn fx:id="col_correo" minWidth="2.0" prefWidth="90.0" text="Correo" />
                   <TableColumn fx:id="col_sexo" minWidth="0.0" prefWidth="37.0" text="Sexo" />
                   <TableColumn fx:id="col_grupo_sanguineo" prefWidth="107.0" text="Grupo Sanguineo" />
                </columns>
             </TableView>
-            <Button layoutX="1322.0" layoutY="501.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="114.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Eliminar" textAlignment="CENTER">
-               <font>
-                  <Font name="Monospaced Bold" size="17.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnGuardar" layoutX="1056.0" layoutY="501.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="37.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Guardar" textAlignment="CENTER">
+            <Button layoutX="1279.0" layoutY="397.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Eliminar" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="14.0" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Buscar" textAlignment="CENTER">
+            <Button fx:id="btnGuardar" layoutX="1279.0" layoutY="294.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Guardar" textAlignment="CENTER">
+               <font>
+                  <Font name="Monospaced Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="744.0" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Buscar" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="11.0" />
                </font>
