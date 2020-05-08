@@ -250,8 +250,30 @@ public class ControladoraBBDD {
 	
 	}
     
-	public void eliminarDonante(Donantes donante) throws SQLException{
-		
+    public int BorrarDonante(int num_donante) throws SQLException{
+
+		String deletesql = "DELETE " + usr +".DONANTE WHERE NUM_DONANTE=?";
+		PreparedStatement pstmt = conexion.prepareStatement (deletesql);
+		pstmt.setInt(1, num_donante);
+
+		try{
+			int resultado = pstmt.executeUpdate();
+
+			if(resultado != 1)
+				System.out.println("Error en el borrado " + resultado);
+			else
+				System.out.println("Donante borrado con éxito!!!");
+
+			return 0;
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println("Ha habido algún problema con  Oracle al hacer el borrado: " + codeErrorSQL);
+			return 2;
+		}
+
 	}
 	public void buscarDonante(Donantes donante) throws SQLException{
 		

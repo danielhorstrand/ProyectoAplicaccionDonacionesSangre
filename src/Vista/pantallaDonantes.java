@@ -3,7 +3,7 @@ package Vista;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-
+import java.util.Optional;
 import Modelo.ControladoraBBDD;
 import Modelo.Donantes;
 import javafx.collections.FXCollections;
@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -315,30 +316,82 @@ public class pantallaDonantes {
 			edicion = true;
 			indiceedicion = index;
 
-			Donantes seleccionada = tabla.getSelectionModel().getSelectedItem();
+			Donantes seleccionado = tabla.getSelectionModel().getSelectedItem();
 
-			int num_donante =  seleccionada.getNum_donante();
-			int telefono1 = seleccionada.getTelefono1();
-			int telefono2 = seleccionada.getTelefono2();
-			int cod_postal = seleccionada.getCodigo_postal();
+			int num_donante =  seleccionado.getNum_donante();
+			int telefono1 = seleccionado.getTelefono1();
+			int telefono2 = seleccionado.getTelefono2();
+			int cod_postal = seleccionado.getCodigo_postal();
 
 
 			txtNum_donante.setText(""+num_donante+"");
-			txtNombre.setText(seleccionada.getNombre());
-			txtApellido1.setText(seleccionada.getApellido1());
-			txtApellido2.setText(seleccionada.getApellido2());
-			txtIdentificacion.setText(seleccionada.getIdentificacion());
-			txtFecha_nacimiento.setText(seleccionada.getFecha_nacimiento());
-			Pais_nacimiento.setValue(seleccionada.getPais_nacimiento());
-			txtDireccion.setText(seleccionada.getDireccion());
-			txtPoblacion.setText(seleccionada.getPoblacion());
+			txtNombre.setText(seleccionado.getNombre());
+			txtApellido1.setText(seleccionado.getApellido1());
+			txtApellido2.setText(seleccionado.getApellido2());
+			txtIdentificacion.setText(seleccionado.getIdentificacion());
+			txtFecha_nacimiento.setText(seleccionado.getFecha_nacimiento());
+			Pais_nacimiento.setValue(seleccionado.getPais_nacimiento());
+			txtDireccion.setText(seleccionado.getDireccion());
+			txtPoblacion.setText(seleccionado.getPoblacion());
 			txtCod_postal.setText(""+cod_postal+"");
 			txtTelefono1.setText(""+telefono1+"");
 			txtTelefono2.setText(""+telefono2+"");
-			Ciclo.setValue(seleccionada.getCiclo());
-	        Grupo_Sanguineo.setValue(seleccionada.getGrupo_sanguineo());
-	        txtCorreo.setText(seleccionada.getCorreo());
-			Sexo.setValue(seleccionada.getSexo());
+			Ciclo.setValue(seleccionado.getCiclo());
+	        Grupo_Sanguineo.setValue(seleccionado.getGrupo_sanguineo());
+	        txtCorreo.setText(seleccionado.getCorreo());
+			Sexo.setValue(seleccionado.getSexo());
+		}
+	}
+	public void Eliminar() throws SQLException{
+		
+		int index = tabla.getSelectionModel().getSelectedIndex();
+		if( index >= 0){
+
+			Donantes seleccionado = tabla.getSelectionModel().getSelectedItem();
+
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Conformación!!!");
+			alert.setHeaderText("Por favor confirme el borrado");
+			alert.setContentText("Dese borrar al Donante "+ seleccionado.getNombre() + " " +seleccionado.getApellido1() +" ?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+
+				ControladoraBBDD con = new ControladoraBBDD();
+				int res = con.BorrarDonante(seleccionado.getNum_donante());
+				switch(res){
+					case 0:
+						alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("OK!");
+						alert.setHeaderText("Borrado OK!");
+						alert.setContentText("¡Donante eliminado con éxito!");
+						alert.showAndWait();
+
+						// Actualizo los datos de la tabla
+						datos = con.ConsultaDonantes();
+						tabla.setItems(datos);
+						break;
+
+					default:
+						alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error!");
+						alert.setHeaderText("Inserción ERROR!");
+						alert.setContentText("¡Ha habido un problema al realizar la inserción!");
+						alert.showAndWait();
+						break;
+				}
+
+				Borrar();
+			}
+
+		}else{
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error en selección de datos");
+			alert.setContentText("NO HAY NINGUN ELEMENTO SELECCIONADO!");
+			alert.showAndWait();
+
 		}
 	}
 
