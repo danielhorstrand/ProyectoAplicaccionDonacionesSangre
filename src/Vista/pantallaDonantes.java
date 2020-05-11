@@ -156,6 +156,7 @@ public class pantallaDonantes {
 		con = new ControladoraBBDD ();
 		
 		datos = con.ConsultaDonantes();
+	
 		tabla.setItems(datos);
 		
 		col_num_donante.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("num_donante"));

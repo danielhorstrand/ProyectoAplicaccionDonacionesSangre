@@ -73,7 +73,7 @@ public class ControladoraBBDD {
 		ObservableList<Donantes> listaDonantes =  FXCollections.observableArrayList();
 		
 		Statement stm = conexion.createStatement();
-		String selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM "+usr+".DONANTE";
+		String selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM "+usr+".DONANTE";
 
 		ResultSet resultado = stm.executeQuery(selectsql);
 	
@@ -153,7 +153,7 @@ public class ControladoraBBDD {
 	}
 	public int guardarDonante (Donantes donante)  throws SQLException{
 		
-			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,TO_DATE( ? , 'DD/MM/YYYY' ),?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			pstmt.setInt(1, donante.getNum_donante());
@@ -282,50 +282,50 @@ public class ControladoraBBDD {
 
 		String selectsql = "";
 		if(Identificacion.equals("") && ciclo.equals("-------") && grupo_sanguineo.equals("-------")){
-			selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE";
+			selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE";
 			pstmt = conexion.prepareStatement (selectsql);
 		}
 		else{
 			if(Identificacion.equals("") && ciclo.equals("-------")){
-				selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE GRUPO_SANGUINEO LIKE ? ";
+				selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE GRUPO_SANGUINEO LIKE ? ";
 				pstmt = conexion.prepareStatement (selectsql);
 
 				pstmt.setString(1, grupo_sanguineo+"%");
 			}else{
 				if (Identificacion.equals("") && grupo_sanguineo.equals("-------")){
-					selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE CICLO LIKE ? ";
+					selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE CICLO LIKE ? ";
 					pstmt = conexion.prepareStatement (selectsql);
 
 					pstmt.setString(1, ciclo+"%");
 				}else{
 					if (ciclo.equals("-------") && grupo_sanguineo.equals("-------")){
-						selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ? ";
+						selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ? ";
 						pstmt = conexion.prepareStatement (selectsql);
 
 						pstmt.setString(1, Identificacion+"%");
 					}else{
 						if (Identificacion.equals("")){
-							selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE CICLO LIKE ?  AND GRUPO_SANGUINEO LIKE ?";
+							selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE CICLO LIKE ?  AND GRUPO_SANGUINEO LIKE ?";
 							pstmt = conexion.prepareStatement (selectsql);
 
 							pstmt.setString(1, ciclo+"%");
 							pstmt.setString(2, grupo_sanguineo+"%");
 						}else{
 							if (ciclo.equals("-------")){
-								selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ?  AND GRUPO_SANGUINEO LIKE ?";
+								selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ?  AND GRUPO_SANGUINEO LIKE ?";
 								pstmt = conexion.prepareStatement (selectsql);
 
 								pstmt.setString(1, Identificacion+"%");
 								pstmt.setString(2, grupo_sanguineo+"%");
 							}else{
 								if (grupo_sanguineo.equals("-------")){
-									selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ?  AND CICLO LIKE ?";
+									selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE IDENTIFICACION LIKE ?  AND CICLO LIKE ?";
 									pstmt = conexion.prepareStatement (selectsql);
 
 									pstmt.setString(1, Identificacion+"%");
 									pstmt.setString(2, ciclo+"%");
 								}else{
-									selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION, FECHA_NACIMIENTO, PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE (IDENTIFICACION LIKE ? ) AND (CICLO LIKE ? ) AND (GRUPO_SANGUINEO LIKE ? )";
+									selectsql = "SELECT NUM_DONANTE, NOMBRE, APELLIDO1, APELLIDO2, IDENTIFICACION,TO_CHAR(FECHA_NACIMIENTO,'DD/MM/YYYY'), PAIS_NACIMIENTO, DIRECCION, POBLACION, CODIGO_POSTAL, TELEFONO, TELEFONO2,  CICLO, CORREO_ELECTRONICO, SEXO, GRUPO_SANGUINEO FROM " + usr +".DONANTE WHERE (IDENTIFICACION LIKE ? ) AND (CICLO LIKE ? ) AND (GRUPO_SANGUINEO LIKE ? )";
 									pstmt = conexion.prepareStatement (selectsql);
 
 									pstmt.setString(1, Identificacion+"%");
@@ -379,6 +379,32 @@ public class ControladoraBBDD {
 			System.out.println(codeErrorSQL);
 		}
 
+		return listaDonantes;
+	}
+	public ObservableList<Integer>  ConsultaNumDonantes() throws SQLException{
+		//Preparo la conexión para ejecutar sentencias SQL de tipo update
+
+		ObservableList<Integer> listaDonantes =  FXCollections.observableArrayList();
+		
+		Statement stm = conexion.createStatement();
+		String selectsql = "SELECT NUM_DONANTE FROM "+usr+".DONANTE";
+
+		ResultSet resultado = stm.executeQuery(selectsql);
+	
+		try{
+			while (resultado.next()) {
+				int num_donante = resultado.getInt(1);
+				
+				listaDonantes.add(num_donante);
+			}
+			
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
 		return listaDonantes;
 	}
 	public void guardarFormulario(Formulario formulario) throws SQLException{

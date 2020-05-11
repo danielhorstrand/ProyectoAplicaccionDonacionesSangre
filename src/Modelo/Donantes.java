@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.io.File;
+import java.time.LocalDate;
 
 public class Donantes {
 
@@ -21,9 +22,12 @@ public class Donantes {
 	private String correo;
 	private String sexo;
 	private String grupo_sanguineo;
-	
-	
-	
+		
+	public Donantes(int num_donante) {
+		super();
+		this.num_donante = num_donante;
+	}
+
 	public Donantes(int num_donante, String nombre, String apellido1, String apellido2, String identificacion,
 			String fecha_nacimiento, String pais_nacimiento, String direccion, String poblacion, int codigo_postal,
 			int telefono1, int telefono2, String ciclo, String correo, String sexo, String grupo_sanguineo) {

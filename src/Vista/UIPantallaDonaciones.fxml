@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,166 +27,166 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="49.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_1" layoutX="873.0" layoutY="49.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="uno" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="49.0" mnemonicParsing="false" text="No" toggleGroup="$uno" />
+                        <RadioButton fx:id="pregunta2_1" layoutX="921.0" layoutY="49.0" mnemonicParsing="false" text="No" toggleGroup="$uno" />
                         <Label layoutX="30.0" layoutY="66.0" prefHeight="28.0" prefWidth="846.0" text="¿Se encuentra bien hoy?...................................................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="72.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_2" layoutX="873.0" layoutY="72.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="dos" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="72.0" mnemonicParsing="false" text="No" toggleGroup="$dos" />
+                        <RadioButton fx:id="pregunta2_2" layoutX="921.0" layoutY="72.0" mnemonicParsing="false" text="No" toggleGroup="$dos" />
                         <Label layoutX="30.0" layoutY="89.0" prefHeight="28.0" prefWidth="846.0" text="¿Pesa más de 50Kg?........................................................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="95.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_3" layoutX="873.0" layoutY="95.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="tres" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="95.0" mnemonicParsing="false" text="No" toggleGroup="$tres" />
+                        <RadioButton fx:id="pregunta2_3" layoutX="921.0" layoutY="95.0" mnemonicParsing="false" text="No" toggleGroup="$tres" />
                         <Label layoutX="27.0" layoutY="111.0" prefHeight="25.0" prefWidth="846.0" text="¿Es la primera vez que dona sangre?........................................................................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="116.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_4" layoutX="873.0" layoutY="116.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="cuatro" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="116.0" mnemonicParsing="false" text="No" toggleGroup="$cuatro" />
+                        <RadioButton fx:id="pregunta2_4" layoutX="921.0" layoutY="116.0" mnemonicParsing="false" text="No" toggleGroup="$cuatro" />
                         <Label layoutX="27.0" layoutY="133.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha donado sangre o aféresis en los ultimos 12 meses?¿Cuántas veces? Fecha última.........................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="139.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_5" layoutX="873.0" layoutY="139.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="cinco" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="139.0" mnemonicParsing="false" text="No" toggleGroup="$cinco" />
+                        <RadioButton fx:id="pregunta2_5" layoutX="921.0" layoutY="139.0" mnemonicParsing="false" text="No" toggleGroup="$cinco" />
                         <Label layoutX="27.0" layoutY="156.0" prefHeight="28.0" prefWidth="846.0" text="¿Has sido rechazado alguna vez como donante?..............................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="162.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_6" layoutX="873.0" layoutY="162.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="seis" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="162.0" mnemonicParsing="false" text="No" toggleGroup="$seis" />
+                        <RadioButton fx:id="pregunta2_6" layoutX="921.0" layoutY="162.0" mnemonicParsing="false" text="No" toggleGroup="$seis" />
                         <Label layoutX="27.0" layoutY="179.0" prefHeight="28.0" prefWidth="846.0" text="¿Convive en la actualidad o ha convivido en los úlyimos 4 meses con algún enfermo de SIDA o hepatitis?....." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="185.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_7" layoutX="873.0" layoutY="185.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="siete" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="185.0" mnemonicParsing="false" text="No" toggleGroup="$siete" />
+                        <RadioButton fx:id="pregunta2_7" layoutX="921.0" layoutY="185.0" mnemonicParsing="false" text="No" toggleGroup="$siete" />
                         <Label layoutX="27.0" layoutY="202.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha compartido en los últimos 4 meses maquinillas de afeitar o cepillos de dientes, aun que sea con" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="231.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_8" layoutX="873.0" layoutY="231.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="ocho" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="231.0" mnemonicParsing="false" text="No" toggleGroup="$ocho" />
+                        <RadioButton fx:id="pregunta2_8" layoutX="921.0" layoutY="231.0" mnemonicParsing="false" text="No" toggleGroup="$ocho" />
                         <Label layoutX="27.0" layoutY="225.0" prefHeight="28.0" prefWidth="846.0" text="familiares o amigos?......................................................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="254.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_9" layoutX="873.0" layoutY="254.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="nueve" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="254.0" mnemonicParsing="false" text="No" toggleGroup="$nueve" />
+                        <RadioButton fx:id="pregunta2_9" layoutX="921.0" layoutY="254.0" mnemonicParsing="false" text="No" toggleGroup="$nueve" />
                         <Label layoutX="27.0" layoutY="248.0" prefHeight="28.0" prefWidth="846.0" text="¿Se ha vacunado en el último mes o le han puesto inmunoglobulinas en los últimos 12 meses?................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="277.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_10" layoutX="873.0" layoutY="277.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="diez" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="277.0" mnemonicParsing="false" text="No" toggleGroup="$diez" />
+                        <RadioButton fx:id="pregunta2_10" layoutX="921.0" layoutY="277.0" mnemonicParsing="false" text="No" toggleGroup="$diez" />
                         <Label layoutX="27.0" layoutY="271.0" prefHeight="28.0" prefWidth="846.0" text="¿Le han puesto la vacuna de la rabia en elúltimo año?......................................................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="300.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_11" layoutX="873.0" layoutY="300.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="once" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="300.0" mnemonicParsing="false" text="No" toggleGroup="$once" />
+                        <RadioButton fx:id="pregunta2_11" layoutX="921.0" layoutY="300.0" mnemonicParsing="false" text="No" toggleGroup="$once" />
                         <Label layoutX="27.0" layoutY="294.0" prefHeight="28.0" prefWidth="846.0" text="¿Se ha realizado algún tratamiento dental en los últimos 7 días?..........................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="323.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_12" layoutX="873.0" layoutY="323.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="doce" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="323.0" mnemonicParsing="false" text="No" toggleGroup="$doce" />
+                        <RadioButton fx:id="pregunta2_12" layoutX="921.0" layoutY="323.0" mnemonicParsing="false" text="No" toggleGroup="$doce" />
                         <Label layoutX="27.0" layoutY="317.0" prefHeight="28.0" prefWidth="846.0" text="¿Toma alguna medicación incluida aspirina, ibuprofeno o derivados en los últimos cinco días?..............." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="346.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_13" layoutX="873.0" layoutY="346.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="trece" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="346.0" mnemonicParsing="false" text="No" toggleGroup="$trece" />
+                        <RadioButton fx:id="pregunta2_13" layoutX="921.0" layoutY="346.0" mnemonicParsing="false" text="No" toggleGroup="$trece" />
                         <Label layoutX="27.0" layoutY="340.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha tomado alguna vez: PROSCAR, PROPECIA, ROACUTAN, ISOTREX, TIGASON, NEOTIGASON, AVODART, DUAGEN?........." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="369.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_14" layoutX="873.0" layoutY="369.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="catorce" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="369.0" mnemonicParsing="false" text="No" toggleGroup="$catorce" />
+                        <RadioButton fx:id="pregunta2_14" layoutX="921.0" layoutY="369.0" mnemonicParsing="false" text="No" toggleGroup="$catorce" />
                         <Label layoutX="27.0" layoutY="363.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha tenido fiebre(&gt;38ºC), diarrea, o alguna otra infección en los últimos quince días?....................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="415.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_15" layoutX="873.0" layoutY="415.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="quince" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="415.0" mnemonicParsing="false" text="No" toggleGroup="$quince" />
+                        <RadioButton fx:id="pregunta2_15" layoutX="921.0" layoutY="415.0" mnemonicParsing="false" text="No" toggleGroup="$quince" />
                         <Label layoutX="27.0" layoutY="386.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha sido hospitalizado, operado de algo o le han realizado una endoscopia (gastroscopia, artroscopia, " textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -193,56 +197,56 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="438.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_16" layoutX="873.0" layoutY="438.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="dieciseis" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="438.0" mnemonicParsing="false" text="No" toggleGroup="$dieciseis" />
+                        <RadioButton fx:id="pregunta2_16" layoutX="921.0" layoutY="438.0" mnemonicParsing="false" text="No" toggleGroup="$dieciseis" />
                         <Label layoutX="27.0" layoutY="432.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha sufrido alguna salpicadura con sangre o punción accidental con aguja en los últimos 4 meses?..........." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="461.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_17" layoutX="873.0" layoutY="461.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="diecisiete" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="461.0" mnemonicParsing="false" text="No" toggleGroup="$diecisiete" />
+                        <RadioButton fx:id="pregunta2_17" layoutX="921.0" layoutY="461.0" mnemonicParsing="false" text="No" toggleGroup="$diecisiete" />
                         <Label layoutX="27.0" layoutY="455.0" prefHeight="28.0" prefWidth="846.0" text="¿Se ha hecho algún tatuaje, piercing, agujero en oreja, acupuntura en los últimos 4 meses?................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="484.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_18" layoutX="873.0" layoutY="484.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="dieciocho" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="484.0" mnemonicParsing="false" text="No" toggleGroup="$dieciocho" />
+                        <RadioButton fx:id="pregunta2_18" layoutX="921.0" layoutY="484.0" mnemonicParsing="false" text="No" toggleGroup="$dieciocho" />
                         <Label layoutX="27.0" layoutY="478.0" prefHeight="28.0" prefWidth="846.0" text="Si es mujer ¿Ha estado embarazada en los últimos seis meses?¿Estátpdavía amamantando al niño?.............." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="507.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_19" layoutX="873.0" layoutY="507.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="diecinueve" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="507.0" mnemonicParsing="false" text="No" toggleGroup="$diecinueve" />
+                        <RadioButton fx:id="pregunta2_19" layoutX="921.0" layoutY="507.0" mnemonicParsing="false" text="No" toggleGroup="$diecinueve" />
                         <Label layoutX="27.0" layoutY="501.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha tenido algún episodio alérgico importante en el último año? ¿Sufre de asma?............................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="874.0" layoutY="574.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_20" layoutX="874.0" layoutY="574.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veinte" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="922.0" layoutY="574.0" mnemonicParsing="false" text="No" toggleGroup="$veinte" />
+                        <RadioButton fx:id="pregunta2_20" layoutX="922.0" layoutY="574.0" mnemonicParsing="false" text="No" toggleGroup="$veinte" />
                         <Label layoutX="27.0" layoutY="524.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha padecido alguna enfermedad infecciosa grave: (hepatitis, tuberculosis, fiebre de malta, toxoplasmosis," textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -258,12 +262,12 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="874.0" layoutY="620.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_21" layoutX="874.0" layoutY="620.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintiuno" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="922.0" layoutY="620.0" mnemonicParsing="false" text="No" toggleGroup="$veintiuno" />
+                        <RadioButton fx:id="pregunta2_21" layoutX="922.0" layoutY="620.0" mnemonicParsing="false" text="No" toggleGroup="$veintiuno" />
                         <Label layoutX="27.0" layoutY="591.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha tenido alguna enfermedad grave de cerebro, riñón, tiroides, pulmón, corazón (infarto, angina, arritmia)," textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -274,45 +278,45 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="874.0" layoutY="643.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_22" layoutX="874.0" layoutY="643.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintidos" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="922.0" layoutY="643.0" mnemonicParsing="false" text="No" toggleGroup="$veintidos" />
+                        <RadioButton fx:id="pregunta2_22" layoutX="922.0" layoutY="643.0" mnemonicParsing="false" text="No" toggleGroup="$veintidos" />
                         <Label layoutX="27.0" layoutY="637.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha tenido convulsiones no febriles, desmayos o epilepsia?.................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="874.0" layoutY="671.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_23" layoutX="874.0" layoutY="671.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintitres" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="922.0" layoutY="671.0" mnemonicParsing="false" text="No" toggleGroup="$veintitres" />
+                        <RadioButton fx:id="pregunta2_23" layoutX="922.0" layoutY="671.0" mnemonicParsing="false" text="No" toggleGroup="$veintitres" />
                         <Label layoutX="27.0" layoutY="665.0" prefHeight="28.0" prefWidth="846.0" text="¿Le han transfundido sangre en alguna ocasión?¿Cuando?¿En qué país?........................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="874.0" layoutY="694.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_24" layoutX="874.0" layoutY="694.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veinticuatro" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="922.0" layoutY="694.0" mnemonicParsing="false" text="No" toggleGroup="$veinticuatro" />
+                        <RadioButton fx:id="pregunta2_24" layoutX="922.0" layoutY="694.0" mnemonicParsing="false" text="No" toggleGroup="$veinticuatro" />
                         <Label layoutX="27.0" layoutY="688.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha utilizado anabolizantes para aumentar la musculatura alguna vez en su vida?............................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="740.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_25" layoutX="873.0" layoutY="740.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veinticinco" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="740.0" mnemonicParsing="false" text="No" toggleGroup="$veinticinco" />
+                        <RadioButton fx:id="pregunta2_25" layoutX="921.0" layoutY="740.0" mnemonicParsing="false" text="No" toggleGroup="$veinticinco" />
                         <Label layoutX="27.0" layoutY="711.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha sido tratado con hormonas de crecimiento?, ¿tiene antecedentes de trasplante de cornea o injerto de " textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -323,12 +327,12 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="791.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_26" layoutX="873.0" layoutY="791.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintiseis" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="791.0" mnemonicParsing="false" text="No" toggleGroup="$veintiseis" />
+                        <RadioButton fx:id="pregunta2_26" layoutX="921.0" layoutY="791.0" mnemonicParsing="false" text="No" toggleGroup="$veintiseis" />
                         <Label layoutX="27.0" layoutY="757.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha residido en el Reino Unido más de un año acumulativo entre los años 1980 a 1996 inclusive?" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -339,12 +343,12 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="837.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_27" layoutX="873.0" layoutY="837.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintisiete" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="837.0" mnemonicParsing="false" text="No" toggleGroup="$veintisiete" />
+                        <RadioButton fx:id="pregunta2_27" layoutX="921.0" layoutY="837.0" mnemonicParsing="false" text="No" toggleGroup="$veintisiete" />
                         <Label layoutX="27.0" layoutY="808.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha nacido Vd.,su madre o su abuela materna fuera de la UE?¿Donde?¿Cuándo regresó de su último viaje a su" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -355,34 +359,34 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="860.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_28" layoutX="873.0" layoutY="860.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintiocho" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="860.0" mnemonicParsing="false" text="No" toggleGroup="$veintiocho" />
+                        <RadioButton fx:id="pregunta2_28" layoutX="921.0" layoutY="860.0" mnemonicParsing="false" text="No" toggleGroup="$veintiocho" />
                         <Label layoutX="27.0" layoutY="854.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha viajado fuera de la UE en los últimos 6 meses?¿Dónde?..................................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="883.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_29" layoutX="873.0" layoutY="883.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="veintinueve" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="883.0" mnemonicParsing="false" text="No" toggleGroup="$veintinueve" />
+                        <RadioButton fx:id="pregunta2_29" layoutX="921.0" layoutY="883.0" mnemonicParsing="false" text="No" toggleGroup="$veintinueve" />
                         <Label layoutX="27.0" layoutY="877.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha residido en algún momento de su vida 6 o más meses fuera de la UE?¿Dónde?..............................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="934.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_30" layoutX="873.0" layoutY="934.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="treinta" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="934.0" mnemonicParsing="false" text="No" toggleGroup="$treinta" />
+                        <RadioButton fx:id="pregunta2_30" layoutX="921.0" layoutY="934.0" mnemonicParsing="false" text="No" toggleGroup="$treinta" />
                         <Label layoutX="27.0" layoutY="905.0" prefHeight="28.0" prefWidth="846.0" text="¿Va a realizar en las siguientes doce horas tras la donación alguna actividad laboral de riesgo?" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -393,23 +397,23 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="957.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_31" layoutX="873.0" layoutY="957.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="treintayuno" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="957.0" mnemonicParsing="false" text="No" toggleGroup="$treintayuno" />
+                        <RadioButton fx:id="pregunta2_31" layoutX="921.0" layoutY="957.0" mnemonicParsing="false" text="No" toggleGroup="$treintayuno" />
                         <Label layoutX="27.0" layoutY="951.0" prefHeight="28.0" prefWidth="846.0" text="En el último año, ¿Le han hecho alguna prueba o reconocimiento médico?......................................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="980.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="pregunta1_32" layoutX="873.0" layoutY="980.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="treintaydos" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="980.0" mnemonicParsing="false" text="No" toggleGroup="$treintaydos" />
+                        <RadioButton fx:id="pregunta2_32" layoutX="921.0" layoutY="980.0" mnemonicParsing="false" text="No" toggleGroup="$treintaydos" />
                         <Label layoutX="27.0" layoutY="974.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha entendido correctamente las preguntas formuladas en este cuestionario?.................................." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -425,34 +429,34 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="1061.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="preguntaExclusion1_1" layoutX="873.0" layoutY="1061.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="exclusionuno" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="1061.0" mnemonicParsing="false" text="No" toggleGroup="$exclusionuno" />
+                        <RadioButton fx:id="preguntaExclusion2_1" layoutX="921.0" layoutY="1061.0" mnemonicParsing="false" text="No" toggleGroup="$exclusionuno" />
                         <Label layoutX="27.0" layoutY="1089.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha mantenido una relación sexual con una nueva pareja en los últimos 4 meses sin proteccion?..............." textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="1094.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="preguntaExclusion1_2" layoutX="873.0" layoutY="1094.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="exclusiondos" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="1094.0" mnemonicParsing="false" text="No" toggleGroup="$exclusiondos" />
+                        <RadioButton fx:id="preguntaExclusion2_2" layoutX="921.0" layoutY="1094.0" mnemonicParsing="false" text="No" toggleGroup="$exclusiondos" />
                         <Label layoutX="27.0" layoutY="1128.0" prefHeight="28.0" prefWidth="846.0" text="¿Ha consumido drogas ilegales alguna vez (heroína,cocaína, etc)?............................................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Label>
-                        <RadioButton layoutX="873.0" layoutY="1133.0" mnemonicParsing="false" text="Si">
+                        <RadioButton fx:id="preguntaExclusion1_3" layoutX="873.0" layoutY="1133.0" mnemonicParsing="false" text="Si">
                            <toggleGroup>
                               <ToggleGroup fx:id="exclusiontres" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="921.0" layoutY="1133.0" mnemonicParsing="false" text="No" toggleGroup="$exclusiontres" />
+                        <RadioButton fx:id="preguntaExclusion2_3" layoutX="921.0" layoutY="1133.0" mnemonicParsing="false" text="No" toggleGroup="$exclusiontres" />
                         <Label layoutX="27.0" layoutY="1055.0" prefHeight="28.0" prefWidth="846.0" text="sífilis, gonorrea, clamidia...)?............................................................................" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
@@ -484,23 +488,29 @@
             <Font name="Monospaced Regular" size="17.0" />
          </font>
       </Label>
-      <TextField layoutX="1001.0" layoutY="109.0" prefHeight="25.0" prefWidth="138.0" />
       <Label layoutX="1001.0" layoutY="134.0" prefHeight="28.0" prefWidth="181.0" text="Numero Formulario" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
             <Font name="Monospaced Regular" size="17.0" />
          </font>
       </Label>
-      <TextField layoutX="1001.0" layoutY="162.0" prefHeight="25.0" prefWidth="138.0" />
+      <TextField fx:id="txtNum_Formulario" layoutX="1001.0" layoutY="162.0" prefHeight="25.0" prefWidth="138.0" />
       <Label layoutX="1000.0" layoutY="197.0" prefHeight="28.0" prefWidth="110.0" text="fecha" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
             <Font name="Monospaced Regular" size="17.0" />
          </font>
       </Label>
-      <TextField layoutX="1001.0" layoutY="229.0" prefHeight="25.0" prefWidth="138.0" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="286.0" text=" Aplicación Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
             <Font name="Monospaced Bold Italic" size="21.0" />
          </font>
       </Label>
+      <DatePicker fx:id="fecha" layoutX="1000.0" layoutY="225.0" prefHeight="25.0" prefWidth="171.0" />
+      <ChoiceBox fx:id="num_donante" layoutX="1000.0" layoutY="99.0" onDragDetected="#initialize" prefWidth="150.0" />
+      <TableView layoutX="996.0" layoutY="269.0" onSort="#initialize" prefHeight="128.0" prefWidth="191.0">
+        <columns>
+          <TableColumn fx:id="col_num_donante" prefWidth="90.0" text="Num_Donante" />
+            <TableColumn fx:id="col_nombre" prefWidth="100.0" text="Nombre" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
