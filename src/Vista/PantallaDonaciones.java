@@ -250,12 +250,27 @@ public class PantallaDonaciones {
 	
 	@FXML
 	private DatePicker fecha;
+	
+	@FXML
+	private TableView<Formulario> tabla;
+	@FXML
+	private TableColumn<Formulario,Integer> col_num_formulario;
 	                                   
 	ObservableList<Integer> datos = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+	ObservableList<Integer> datos2 = FXCollections.observableArrayList();
+	ObservableList<Formulario> datos3 = FXCollections.observableArrayList();
 
     public void initialize () throws SQLException{  
     	
-    	num_donante.setItems(datos);
+    	ControladoraBBDD conDonaciones3 = new ControladoraBBDD();
+    	
+    	datos2 = conDonaciones3.ConsultaNumDonantes();
+    	
+    	datos3 = conDonaciones3.ConsultaFormularios();
+    	
+    	col_num_formulario.setCellValueFactory(new PropertyValueFactory<Formulario,Integer>("num_formulario"));
+    	
+    	num_donante.setItems(datos2);
 
 	}    
 	public void setStagePrincipal(Stage ventana) {
@@ -496,8 +511,14 @@ public class PantallaDonaciones {
 			fecha_exclusion = fecha.getValue().format(isoFecha);
 			
 		}else {
-			apto ="SI";
-			estado_donacion="APTO";
+			if (pregunta1.equals("NO") || pregunta3.equals("NO") || pregunta12.equals("SI") || pregunta14.equals("SI") || pregunta16.equals("SI") || pregunta17.equals("SI") ){
+				apto = "NO";
+				estado_donacion="EXCLUIDO TEMPORAL";
+				fecha_exclusion = fecha.getValue().format(isoFecha);
+			}else {
+				apto ="SI";
+				estado_donacion="APTO";
+			}
 		}
 		
 		int num_formulario2 = Integer.parseInt(txtNum_Formulario.getText());

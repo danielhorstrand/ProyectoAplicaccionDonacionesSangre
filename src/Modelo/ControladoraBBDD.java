@@ -115,7 +115,7 @@ public class ControladoraBBDD {
 		ObservableList<Formulario> listaFormulario =  FXCollections.observableArrayList();
 		
 		Statement stm = conexion.createStatement();
-		String selectsql = "SELECT F.CODIGO FROM "+usr+".FORMULARIO";
+		String selectsql = "SELECT CODIGO FROM "+usr+".FORMULARIO";
 
 		ResultSet resultado = stm.executeQuery(selectsql);
 	
@@ -123,9 +123,8 @@ public class ControladoraBBDD {
 			while (resultado.next()) {
 				int num_donante = resultado.getInt(1);
 
-
-				Formulario a = new Formulario (num_donante);
-				listaFormulario.add(a);
+				Formulario n = new Formulario (num_donante);
+				listaFormulario.add(n);
 			}
 			
 		}catch(SQLException sqle){
@@ -447,7 +446,7 @@ public class ControladoraBBDD {
 		try{
 			while (resultado.next()) {
 				int num_donante = resultado.getInt(1);
-				
+
 				listaDonantes.add(num_donante);
 			}
 			
