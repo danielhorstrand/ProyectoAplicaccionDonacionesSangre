@@ -1,5 +1,6 @@
 package Vista;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -174,7 +176,6 @@ public class pantallaDonantes {
 		col_sexo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("sexo"));
 		col_grupo_sanguineo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("grupo_sanguineo"));
 
-		// Al arrancar la vista se pone edicion a false
 		edicion = false;
 		indiceedicion = 0;
 
@@ -190,28 +191,26 @@ public class pantallaDonantes {
 
 	public void seleccionarimagen() throws SQLException{
 
-
-		// muestra el cuadro de diálogo de archivos, para que el usuario pueda elegir el archivo a abrir
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Buscar Imagen");
 
-		// Agregar filtros para facilitar la busqueda
 		fileChooser.getExtensionFilters().addAll(
-		                new FileChooser.ExtensionFilter("JPG", "*.jpeg"),
+		                new FileChooser.ExtensionFilter("Todos los archivos", "*.*"),
 		                new FileChooser.ExtensionFilter("PNG", "*.png"),
-		                new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
+		                new FileChooser.ExtensionFilter("JPG", "*.jpeg")
 		 );
 
 		 Window stage = null;
 
-		 // Obtener el archivo seleccionado
 		 file = fileChooser.showOpenDialog(stage);
 		 
 		 txtf_ruta.setText(file.getPath());
-
+		 
+		 int num_donante =  Integer.parseInt(txtNum_donante.getText());
 
 	}
-	public void Guardar() throws SQLException{
+	public void Guardar() throws SQLException, FileNotFoundException{
+		
 	
 			int num_donante =  Integer.parseInt(txtNum_donante.getText());
 			int telefono1 = Integer.parseInt(txtTelefono1.getText());
@@ -236,7 +235,11 @@ public class pantallaDonantes {
 	    			ControladoraBBDD con = new ControladoraBBDD();
 					Donantes donantecambio = new Donantes (num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,ciclo1,txtCorreo.getText(),sexo,sangre);
 	    				
-	    			int res = con.modificarDonante(donantecambio);
+					int res =0;
+					
+    				if(txtNombre.getText()!="" && txtf_ruta.getText()!=""){
+    					res = con.modificarDonante(donantecambio,file);
+    				}
 	    				
 	    			switch (res){
 
@@ -246,7 +249,7 @@ public class pantallaDonantes {
 						alert.setHeaderText("Modificación OK!");
 						alert.setContentText("¡Donante modificado con éxito!");
 						alert.showAndWait();
-						// Actualizo los datos de la tabla
+
 						datos = con.ConsultaDonantes();
 						tabla.setItems(datos);
 						break;
@@ -266,7 +269,11 @@ public class pantallaDonantes {
 
 	    				Donantes nuevo = new Donantes(num_donante,txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),txtIdentificacion.getText(),txtFecha_nacimiento.getText(),pais,txtDireccion.getText(),txtPoblacion.getText(),cod_postal,telefono1,telefono2,ciclo1,txtCorreo.getText(),sexo,sangre);
 
-    					int res = con.guardarDonante(nuevo);
+	    				int res =0;
+	    				
+	    				if(txtNombre.getText()!="" && txtf_ruta.getText()!=""){
+	    					res = con.guardarDonante(nuevo,file);
+	    				}
     					
     					switch (res){
 
@@ -277,7 +284,6 @@ public class pantallaDonantes {
     						alert.setContentText("¡Donante insertado con éxito!");
     						alert.showAndWait();
 
-    						// Actualizo los datos de la tabla
     						datos = con.ConsultaDonantes();
     						tabla.setItems(datos);
     						break;
@@ -331,7 +337,6 @@ public class pantallaDonantes {
 
 		if( index >= 0){
 
-			// Activo la "funcionalidad" de editar para luego que el botón guardar sepa a qué PErsona estoy "editando"
 			edicion = true;
 			indiceedicion = index;
 
@@ -359,6 +364,9 @@ public class pantallaDonantes {
 	        Grupo_Sanguineo.setValue(seleccionado.getGrupo_sanguineo());
 	        txtCorreo.setText(seleccionado.getCorreo());
 			Sexo.setValue(seleccionado.getSexo());
+			
+		    Image img = new Image(new ByteArrayInputStream(con.LeerFoto(num_donante)));
+		    foto.setImage(img);
 		}
 	}
 	public void Eliminar() throws SQLException{
@@ -386,7 +394,6 @@ public class pantallaDonantes {
 						alert.setContentText("¡Donante eliminado con éxito!");
 						alert.showAndWait();
 
-						// Actualizo los datos de la tabla
 						datos = con.ConsultaDonantes();
 						tabla.setItems(datos);
 						break;
@@ -427,7 +434,7 @@ public class pantallaDonantes {
 	public void imprime() throws FileNotFoundException, DocumentException{
 
 		String sangre = (String) Grupo_Sanguineo.getValue();
-		ImprimeArchivo imprime = new ImprimeArchivo("archivo","C:\\Users\\danie\\Downloads\\");
+		ImprimeArchivo imprime = new ImprimeArchivo("archivo","C:\\Users\\danie\\Downloads\\",txtf_ruta.getText());
 		imprime.generarArchivoPDF(txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText(),sangre,txtIdentificacion.getText());
 
 	}

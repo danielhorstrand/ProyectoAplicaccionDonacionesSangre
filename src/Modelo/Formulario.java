@@ -100,7 +100,6 @@ public class Formulario {
 		this.fecha_exclusion = fecha_exclusion;
 	}
 	public Formulario(int num_formulario) {
-		// TODO Auto-generated constructor stub
 		this.num_formulario=num_formulario;
 	}
 	public int getNum_formulario() {

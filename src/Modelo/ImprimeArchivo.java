@@ -16,12 +16,14 @@ public class ImprimeArchivo {
 	
 	private String filename;
 	private String filepath;
+	private String pathFoto;
 
 
-	public ImprimeArchivo(String filename, String filepath) {
+	public ImprimeArchivo(String filename, String filepath, String pathFoto) {
 		super();
 		this.filename = filename;
 		this.filepath = filepath;
+		this.pathFoto = pathFoto;
 	}
 
 
@@ -61,6 +63,19 @@ public class ImprimeArchivo {
 		Font.BOLD));
 		p1.setAlignment(Element.ALIGN_CENTER);
 		documento.add(p1);
+		
+		try
+		{
+			String path = this.pathFoto;
+			Image foto = Image.getInstance(path);
+			foto.scaleToFit(150, 150);
+			foto.setAbsolutePosition(400, 640);
+			documento.add(foto);
+		}
+		catch ( Exception e )
+		{
+			System.out.println(e.getMessage());
+		}
 
 		
 		Paragraph p2 = new Paragraph("\n"+nombre+" "+apellido+" "+apellido2,

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -115,15 +116,55 @@ public class ControladoraBBDD {
 		ObservableList<Formulario> listaFormulario =  FXCollections.observableArrayList();
 		
 		Statement stm = conexion.createStatement();
-		String selectsql = "SELECT CODIGO FROM "+usr+".FORMULARIO";
+		String selectsql = "SELECT * FROM "+usr+".FORMULARIO";
 
 		ResultSet resultado = stm.executeQuery(selectsql);
 	
 		try{
 			while (resultado.next()) {
 				int num_donante = resultado.getInt(1);
+				String pregunta1 = resultado.getString(2);
+				String pregunta2 = resultado.getString(3);
+				String pregunta3 = resultado.getString(4);
+				String pregunta4 = resultado.getString(5);
+				String pregunta5 = resultado.getString(6);
+				String pregunta6 = resultado.getString(7);
+				String pregunta7 = resultado.getString(8);
+				String pregunta8 = resultado.getString(9);
+				String pregunta9 = resultado.getString(10);
+				String pregunta10 = resultado.getString(11);
+				String pregunta11 = resultado.getString(12);
+				String pregunta12 = resultado.getString(13);
+				String pregunta13 = resultado.getString(14);
+				String pregunta14 = resultado.getString(15);
+				String pregunta15 = resultado.getString(16);
+				String pregunta16 = resultado.getString(17);
+				String pregunta17 = resultado.getString(18);
+				String pregunta18 = resultado.getString(19);
+				String pregunta19 = resultado.getString(20);
+				String pregunta20 = resultado.getString(21);
+				String pregunta21 = resultado.getString(22);
+				String pregunta22 = resultado.getString(23);
+				String pregunta23 = resultado.getString(24);
+				String pregunta24 = resultado.getString(25);
+				String pregunta25 = resultado.getString(26);
+				String pregunta26 = resultado.getString(27);
+				String pregunta27 = resultado.getString(28);
+				String pregunta28 = resultado.getString(29);
+				String pregunta29 = resultado.getString(30);
+				String pregunta30 = resultado.getString(31);
+				String pregunta31 = resultado.getString(32);
+				String pregunta32 = resultado.getString(33);
+				String pregunta33 = resultado.getString(34);
+				String pregunta34 = resultado.getString(35);
+				String pregunta35 = resultado.getString(36);
+				String apto = resultado.getString(37);
+				String fecha = resultado.getString(38);
+				String estado = resultado.getString(39);
+				String fecha_exclusion = resultado.getString(40);
+				
 
-				Formulario n = new Formulario (num_donante);
+				Formulario n = new Formulario (num_donante,pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,pregunta8,pregunta9,pregunta10,pregunta11,pregunta12,pregunta13,pregunta14,pregunta15,pregunta16,pregunta17,pregunta18,pregunta19,pregunta20,pregunta21,pregunta22,pregunta23,pregunta24,pregunta25,pregunta26,pregunta27,pregunta28,pregunta29,pregunta30,pregunta31,pregunta32,pregunta33,pregunta34,pregunta35,apto,fecha,estado,fecha_exclusion);
 				listaFormulario.add(n);
 			}
 			
@@ -138,12 +179,9 @@ public class ControladoraBBDD {
 	}
 	public int InsertarFoto(File archivofoto) throws SQLException{
 
-
-		//ejecuto la sentencia
 		try{
-			// Preparo la sentencia SQL
 			String insertsql = "INSERT INTO "+usr+".DONANTE (FOTO) VALUES (?)";
-			// Prepoparo la sentencia para ejecutar en la base de datos
+
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 
 			FileInputStream convertir_imagen = new FileInputStream (archivofoto);
@@ -178,10 +216,11 @@ public class ControladoraBBDD {
 
 		return 0;
 	}
-	public int guardarDonante (Donantes donante)  throws SQLException{
+	public int guardarDonante (Donantes donante,File archivoFoto)  throws SQLException, FileNotFoundException{
 		
-			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,TO_DATE( ? , 'DD/MM/YYYY' ),?,?,?,?,?,?,?,?,?,?)";
-
+			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,FOTO,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,TO_DATE( ? , 'DD/MM/YYYY' ),?,?,?,?,?,?,?,?,?,?,?)";
+			FileInputStream convertir_imagen = new FileInputStream (archivoFoto);
+			
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			pstmt.setInt(1, donante.getNum_donante());
 			pstmt.setString(2, donante.getNombre());
@@ -195,10 +234,11 @@ public class ControladoraBBDD {
 			pstmt.setInt(10, donante.getCodigo_postal());
 			pstmt.setInt(11, donante.getTelefono1());
 			pstmt.setInt(12, donante.getTelefono2());
-			pstmt.setString(13, donante.getCiclo());
-			pstmt.setString(14, donante.getCorreo());
-			pstmt.setString(15, donante.getSexo());
-			pstmt.setString(16, donante.getGrupo_sanguineo());
+			pstmt.setBlob(13, convertir_imagen, archivoFoto.length());
+			pstmt.setString(14, donante.getCiclo());
+			pstmt.setString(15, donante.getCorreo());
+			pstmt.setString(16, donante.getSexo());
+			pstmt.setString(17, donante.getGrupo_sanguineo());
 
 		
 		try{
@@ -227,13 +267,49 @@ public class ControladoraBBDD {
 		}
 
 	}
+	public byte[] LeerFoto(int num_donante) throws SQLException{
 
-    public int modificarDonante (Donantes donante)  throws SQLException{		
+		byte[] byteImage = null;
+		try{
+
+			String insertsql = "SELECT FOTO FROM "+usr+".DONANTE WHERE NUM_DONANTE=?";
+
+			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+			pstmt.setInt(1, num_donante);
+			ResultSet resultado = pstmt.executeQuery();
+
+			int contador = 0;
+			while(resultado.next()){
+				contador++;
+
+			    Blob blob = resultado.getBlob(1);
+			    byteImage = blob.getBytes(1, (int) blob.length());
+
+			}
+
+			if(contador==0)
+				System.out.println("no data found");
+
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+
+				System.out.println( codeErrorSQL);
+		}
+
+		return byteImage;
+	}
+	
+    public int modificarDonante (Donantes donante,File archivoFoto)  throws SQLException, FileNotFoundException{		
 		
 		Statement stm = conexion.createStatement();
 		
-			String insertsql = "UPDATE "+usr+".DONANTE SET NOMBRE=?, APELLIDO1=?, APELLIDO2=?, IDENTIFICACION=?, FECHA_NACIMIENTO=?, PAIS_NACIMIENTO=?, DIRECCION=?, POBLACION=?, CODIGO_POSTAL=?, TELEFONO=?, TELEFONO2=?,  CICLO=?, CORREO_ELECTRONICO=?, SEXO=?, GRUPO_SANGUINEO=? WHERE NUM_DONANTE=?";
+			String insertsql = "UPDATE "+usr+".DONANTE SET NOMBRE=?, APELLIDO1=?, APELLIDO2=?, IDENTIFICACION=?, FECHA_NACIMIENTO=?, PAIS_NACIMIENTO=?, DIRECCION=?, POBLACION=?, CODIGO_POSTAL=?, TELEFONO=?, TELEFONO2=?, FOTO=?,  CICLO=?, CORREO_ELECTRONICO=?, SEXO=?, GRUPO_SANGUINEO=? WHERE NUM_DONANTE=?";
 
+			FileInputStream convertir_imagen = new FileInputStream (archivoFoto);
+			
 			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			pstmt.setString(1, donante.getNombre());
 			pstmt.setString(2, donante.getApellido1());
@@ -246,11 +322,12 @@ public class ControladoraBBDD {
 			pstmt.setInt(9, donante.getCodigo_postal());
 			pstmt.setInt(10, donante.getTelefono1());
 			pstmt.setInt(11, donante.getTelefono2());
-			pstmt.setString(12, donante.getCiclo());
-			pstmt.setString(13, donante.getCorreo());
-			pstmt.setString(14, donante.getSexo());
-			pstmt.setString(15, donante.getGrupo_sanguineo());
-			pstmt.setInt(16, donante.getNum_donante());
+			pstmt.setBlob(12, convertir_imagen, archivoFoto.length());
+			pstmt.setString(13, donante.getCiclo());
+			pstmt.setString(14, donante.getCorreo());
+			pstmt.setString(15, donante.getSexo());
+			pstmt.setString(16, donante.getGrupo_sanguineo());
+			pstmt.setInt(17, donante.getNum_donante());
 
 			try{
 				int resultado = pstmt.executeUpdate();
@@ -276,7 +353,7 @@ public class ControladoraBBDD {
 		}
 	
 	}
-    
+   
     public int BorrarDonante(int num_donante) throws SQLException{
 
 		String deletesql = "DELETE " + usr +".DONANTE WHERE NUM_DONANTE=?";

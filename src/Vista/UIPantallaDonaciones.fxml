@@ -18,7 +18,7 @@
 
 <AnchorPane prefHeight="564.0" prefWidth="1121.0" style="-fx-background-color: B2F3EA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.PantallaDonaciones">
    <children>
-      <ScrollPane layoutX="14.0" layoutY="59.0" prefHeight="483.0" prefWidth="981.0">
+      <ScrollPane layoutX="14.0" layoutY="41.0" prefHeight="483.0" prefWidth="981.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1182.0" prefWidth="966.0">
                <children>
@@ -644,6 +644,15 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnBorrar" layoutX="919.0" layoutY="2.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="28.0" prefWidth="6.0">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@goma2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </Pane>
                </children>
@@ -660,20 +669,20 @@
             <Font name="Monospaced Bold" size="13.0" />
          </font>
       </Button>
-      <Label layoutX="1000.0" layoutY="71.0" prefHeight="28.0" prefWidth="149.0" text="Numero donante" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+      <Label layoutX="1001.0" layoutY="112.0" prefHeight="28.0" prefWidth="160.0" text="NUMERO DONANTE:" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
-            <Font name="Monospaced Regular" size="17.0" />
+            <Font name="Monospaced Italic" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1001.0" layoutY="134.0" prefHeight="28.0" prefWidth="181.0" text="Numero Formulario" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+      <Label layoutX="1000.0" layoutY="165.0" prefHeight="28.0" prefWidth="184.0" text="NUMERO FORMULARIO:" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
-            <Font name="Monospaced Regular" size="17.0" />
+            <Font name="Monospaced Italic" size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNum_Formulario" layoutX="1001.0" layoutY="162.0" prefHeight="28.0" prefWidth="82.0" />
-      <Label layoutX="1000.0" layoutY="197.0" prefHeight="28.0" prefWidth="110.0" text="fecha" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+      <TextField fx:id="txtNum_Formulario" layoutX="1001.0" layoutY="193.0" prefHeight="28.0" prefWidth="82.0" />
+      <Label layoutX="1000.0" layoutY="59.0" prefHeight="28.0" prefWidth="110.0" text="FECHA:" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
-            <Font name="Monospaced Regular" size="17.0" />
+            <Font name="Monospaced Italic" size="17.0" />
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="7.0" prefHeight="41.0" prefWidth="286.0" text=" Aplicación Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
@@ -681,9 +690,9 @@
             <Font name="Monospaced Bold Italic" size="21.0" />
          </font>
       </Label>
-      <DatePicker fx:id="fecha" layoutX="1000.0" layoutY="225.0" prefHeight="25.0" prefWidth="171.0" />
-      <ChoiceBox fx:id="num_donante" layoutX="1000.0" layoutY="99.0" prefWidth="150.0" />
-      <Button fx:id="btnEliminar" ellipsisString="" layoutX="1092.0" layoutY="161.0" mnemonicParsing="false" onAction="#eliminarFormulario" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" textAlignment="CENTER" wrapText="true">
+      <DatePicker fx:id="fecha" layoutX="1000.0" layoutY="87.0" prefHeight="25.0" prefWidth="171.0" />
+      <ChoiceBox fx:id="num_donante" layoutX="1001.0" layoutY="140.0" prefWidth="150.0" />
+      <Button fx:id="btnEliminar" ellipsisString="" layoutX="1093.0" layoutY="193.0" mnemonicParsing="false" onAction="#eliminarFormulario" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Monospaced Bold" size="10.0" />
          </font>
@@ -695,10 +704,26 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="tabla" layoutX="1001.0" layoutY="253.0" prefHeight="165.0" prefWidth="150.0">
+      <TableView fx:id="tabla" layoutX="1001.0" layoutY="229.0" onMouseClicked="#Editar" prefHeight="187.0" prefWidth="150.0">
         <columns>
-          <TableColumn fx:id="col_num_formulario" prefWidth="149.0" text="Formularios Existentes" />
+          <TableColumn fx:id="col_num_formulario" prefWidth="149.0" text="Nº Formularios" />
         </columns>
       </TableView>
+      <TextField fx:id="txtApto" editable="false" layoutX="1094.0" layoutY="36.0" prefHeight="25.0" prefWidth="67.0" />
+      <Label layoutX="1000.0" layoutY="34.0" prefHeight="28.0" prefWidth="52.0" text="APTO:" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+         <font>
+            <Font name="Monospaced Italic" size="17.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="si" fitHeight="28.0" fitWidth="34.0" layoutX="1059.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@pngocean.com.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="no" fitHeight="41.0" fitWidth="34.0" layoutX="1053.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@kisspng-red-x-x-mark-computer-icons-clip-art-red-x-png-5ab19106316800.2072037015215864382024.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

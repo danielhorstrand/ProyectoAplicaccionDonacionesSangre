@@ -117,7 +117,7 @@
             <TextField fx:id="txtFecha_nacimiento" layoutX="276.0" layoutY="231.0" prefHeight="25.0" prefWidth="250.0" />
             <TextField fx:id="txtDireccion" layoutX="739.0" layoutY="56.0" prefHeight="25.0" prefWidth="230.0" />
             <TextField fx:id="txtCorreo" layoutX="740.0" layoutY="122.0" prefHeight="25.0" prefWidth="230.0" />
-            <ImageView fx:id="foto" fitHeight="252.0" fitWidth="286.0" layoutX="1020.0" layoutY="39.0" onDragDetected="#Guardar" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="foto" fitHeight="252.0" fitWidth="286.0" layoutX="1020.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="btnBorrar" layoutX="893.0" layoutY="303.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="17.0" prefWidth="96.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Borrar" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="11.0" />

@@ -3,6 +3,7 @@ package Vista;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
+import Controlador.Main;
 import Modelo.ControladoraBBDD;
 import Modelo.Donantes;
 import Modelo.Formulario;
@@ -10,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -18,19 +20,29 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class PantallaDonaciones {
 	
+	private Controlador.Main ProgramaPrincipal;
 	@FXML
 	private Button btnContinuar;
 	@FXML
 	private Button btnVolver;
 	@FXML
 	private Button btnEliminar;
+	@FXML
+	private Button btnBorrar;
 	
 	private Stage ventana;
+	
+	@FXML
+	private ImageView si;
+	@FXML
+	private ImageView no;
 	
 	@FXML
 	RadioButton pregunta1_1;
@@ -249,6 +261,9 @@ public class PantallaDonaciones {
 	private TextField txtNum_Formulario;
 	
 	@FXML
+	private TextField txtApto;
+	
+	@FXML
 	private DatePicker fecha;
 	
 	@FXML
@@ -259,6 +274,9 @@ public class PantallaDonaciones {
 	ObservableList<Integer> datos = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
 	ObservableList<Integer> datos2 = FXCollections.observableArrayList();
 	ObservableList<Formulario> datos3 = FXCollections.observableArrayList();
+	
+	private boolean edicion;
+	private int indiceedicion;
 
     public void initialize () throws SQLException{  
     	
@@ -268,9 +286,19 @@ public class PantallaDonaciones {
     	
     	datos3 = conDonaciones3.ConsultaFormularios();
     	
+    	tabla.setItems(datos3);
+    	
     	col_num_formulario.setCellValueFactory(new PropertyValueFactory<Formulario,Integer>("num_formulario"));
     	
     	num_donante.setItems(datos2);
+    	
+		edicion = false;
+		indiceedicion = 0;
+		
+		if (this.txtApto.equals("")==true){
+			this.si.setVisible(false);
+			this.no.setVisible(false);
+		}
 
 	}    
 	public void setStagePrincipal(Stage ventana) {
@@ -286,6 +314,7 @@ public class PantallaDonaciones {
 		
 		ControladoraBBDD conDonaciones = new ControladoraBBDD();
 		
+
 		String pregunta1;
 		String pregunta2;
 		String pregunta3;
@@ -498,7 +527,7 @@ public class PantallaDonaciones {
 			preguntaEX3="NO";
 		}
 		
-		String apto = "";
+		txtApto.setText("");
 		String estado_donacion="";
 		
 		DateTimeFormatter isoFecha = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -506,25 +535,59 @@ public class PantallaDonaciones {
 		String fecha_exclusion = "";
 		
 		if ( preguntaEX1.equals("SI") || preguntaEX2.equals("SI")  || preguntaEX3.equals("SI") ){
-			apto = "NO";
+			txtApto.setText("NO");
 			estado_donacion="EXCLUIDO";
 			fecha_exclusion = fecha.getValue().format(isoFecha);
 			
 		}else {
 			if (pregunta1.equals("NO") || pregunta3.equals("NO") || pregunta12.equals("SI") || pregunta14.equals("SI") || pregunta16.equals("SI") || pregunta17.equals("SI") ){
-				apto = "NO";
+				txtApto.setText("NO");
 				estado_donacion="EXCLUIDO TEMPORAL";
 				fecha_exclusion = fecha.getValue().format(isoFecha);
 			}else {
-				apto ="SI";
+				txtApto.setText("SI");
 				estado_donacion="APTO";
 			}
 		}
 		
 		int num_formulario2 = Integer.parseInt(txtNum_Formulario.getText());
 		int num_donante2 = (int) num_donante.getValue();
-		conDonaciones.guardarFormulario(num_formulario2, pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,pregunta8,pregunta9,pregunta10,pregunta11,pregunta12,pregunta13,pregunta14,pregunta15,pregunta16,pregunta17,pregunta18,pregunta19,pregunta20,pregunta21,pregunta22,pregunta23,pregunta24,pregunta25,pregunta26,pregunta27,pregunta28,pregunta29,pregunta30,pregunta31,pregunta32,preguntaEX1,preguntaEX2,preguntaEX3,apto,fecha1,estado_donacion,fecha_exclusion,num_donante2);
-		conDonaciones.guardarRellena(num_formulario2, num_donante2);
+		
+		int res =0;
+		
+		res = conDonaciones.guardarFormulario(num_formulario2, pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,pregunta8,pregunta9,pregunta10,pregunta11,pregunta12,pregunta13,pregunta14,pregunta15,pregunta16,pregunta17,pregunta18,pregunta19,pregunta20,pregunta21,pregunta22,pregunta23,pregunta24,pregunta25,pregunta26,pregunta27,pregunta28,pregunta29,pregunta30,pregunta31,pregunta32,preguntaEX1,preguntaEX2,preguntaEX3,txtApto.getText(),fecha1,estado_donacion,fecha_exclusion,num_donante2);
+
+		switch (res){
+
+		case 0:
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("OK!");
+			alert.setHeaderText("Modificación OK!");
+			alert.setContentText("¡Formulario guardado con éxito!");
+			alert.showAndWait();
+			conDonaciones.guardarRellena(num_formulario2, num_donante2);
+			datos3 = conDonaciones.ConsultaFormularios();
+			tabla.setItems(datos3);
+			break;
+		case 1:
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Aviso!");
+			alert.setHeaderText("Inserción ERROR!");
+			alert.setContentText("¡Ya existe un Formulario y relacion con ese CODIGO!");
+			alert.showAndWait();
+			break;
+		default:
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error!");
+				alert.setHeaderText("Modificación ERROR!");
+				alert.setContentText("¡Ha habido un problema al realizar el update!");
+				alert.showAndWait();
+				break;
+
+			}  
+		if (txtApto.getText().equals("SI")==true){
+			AbrirVentanaDonaciones2();
+		}
 	}
 	public void eliminarFormulario () throws SQLException{
 		
@@ -533,6 +596,315 @@ public class PantallaDonaciones {
 		int num_formulario2 = Integer.parseInt(txtNum_Formulario.getText());
 		conDonaciones.BorrarFormulario(num_formulario2);
 		
+    	datos3 = conDonaciones.ConsultaFormularios();
+    	
+    	tabla.setItems(datos3);
+    	
+    	col_num_formulario.setCellValueFactory(new PropertyValueFactory<Formulario,Integer>("num_formulario"));
+		
+		Borrar();
+		
+	}
+	public void Borrar(){
+
+			this.pregunta1_1.setSelected(false);
+			this.pregunta2_1.setSelected(false);
+			this.pregunta1_2.setSelected(false);
+			this.pregunta2_2.setSelected(false);
+			this.pregunta1_3.setSelected(false);
+			this.pregunta2_3.setSelected(false);
+			this.pregunta1_4.setSelected(false);
+			this.pregunta2_4.setSelected(false);
+			this.pregunta1_5.setSelected(false);
+			this.pregunta2_5.setSelected(false);
+			this.pregunta1_6.setSelected(false);
+			this.pregunta2_6.setSelected(false);
+			this.pregunta1_7.setSelected(false);
+			this.pregunta2_7.setSelected(false);
+			this.pregunta1_8.setSelected(false);
+			this.pregunta2_8.setSelected(false);
+			this.pregunta1_9.setSelected(false);
+			this.pregunta2_9.setSelected(false);
+			this.pregunta1_10.setSelected(false);
+			this.pregunta2_10.setSelected(false);
+			this.pregunta1_11.setSelected(false);
+			this.pregunta2_11.setSelected(false);
+			this.pregunta1_12.setSelected(false);
+			this.pregunta2_12.setSelected(false);
+			this.pregunta1_13.setSelected(false);
+			this.pregunta2_13.setSelected(false);
+			this.pregunta1_14.setSelected(false);
+			this.pregunta2_14.setSelected(false);
+			this.pregunta1_15.setSelected(false);
+			this.pregunta2_15.setSelected(false);
+			this.pregunta1_16.setSelected(false);
+			this.pregunta2_16.setSelected(false);
+			this.pregunta1_17.setSelected(false);
+			this.pregunta2_17.setSelected(false);
+			this.pregunta1_18.setSelected(false);
+			this.pregunta2_18.setSelected(false);
+			this.pregunta1_19.setSelected(false);
+			this.pregunta2_19.setSelected(false);
+			this.pregunta1_20.setSelected(false);
+			this.pregunta2_20.setSelected(false);
+			this.pregunta1_21.setSelected(false);
+			this.pregunta2_21.setSelected(false);
+			this.pregunta1_22.setSelected(false);
+			this.pregunta2_22.setSelected(false);
+			this.pregunta1_23.setSelected(false);
+			this.pregunta2_23.setSelected(false);
+			this.pregunta1_23.setSelected(false);
+			this.pregunta2_23.setSelected(false);
+			this.pregunta1_24.setSelected(false);
+			this.pregunta2_24.setSelected(false);
+			this.pregunta1_25.setSelected(false);
+			this.pregunta2_25.setSelected(false);
+			this.pregunta1_26.setSelected(false);
+			this.pregunta2_26.setSelected(false);
+			this.pregunta1_27.setSelected(false);
+			this.pregunta2_27.setSelected(false);
+			this.pregunta1_28.setSelected(false);
+			this.pregunta2_28.setSelected(false);
+			this.pregunta1_29.setSelected(false);
+			this.pregunta2_29.setSelected(false);
+			this.pregunta1_30.setSelected(false);
+			this.pregunta2_30.setSelected(false);
+			this.pregunta1_31.setSelected(false);
+			this.pregunta2_31.setSelected(false);
+			this.pregunta1_32.setSelected(false);
+			this.pregunta2_32.setSelected(false);
+			this.preguntaExclusion1_1.setSelected(false);
+			this.preguntaExclusion2_1.setSelected(false);
+			this.preguntaExclusion1_2.setSelected(false);
+			this.preguntaExclusion2_2.setSelected(false);
+			this.preguntaExclusion1_3.setSelected(false);
+			this.preguntaExclusion2_3.setSelected(false);
+			this.txtApto.setText("");
+			this.si.setVisible(false);
+			this.no.setVisible(false);
+
+		
+		edicion = false;
+		indiceedicion = 0;
+	}
+	public void Editar() throws SQLException{
+
+		int index = tabla.getSelectionModel().getSelectedIndex();
+
+
+		if( index >= 0){
+
+			// Activo la "funcionalidad" de editar para luego que el botón guardar sepa a qué PErsona estoy "editando"
+			edicion = true;
+			indiceedicion = index;
+
+			Formulario seleccionado = tabla.getSelectionModel().getSelectedItem();
+			if (seleccionado.getPregunta1().equals("SI")==true){
+				this.pregunta1_1.setSelected(true);
+			}else {
+				this.pregunta2_1.setSelected(true);
+			}
+			if (seleccionado.getPregunta2().equals("SI")==true){
+				this.pregunta1_2.setSelected(true);
+			}else {
+				this.pregunta2_2.setSelected(true);
+			}
+			if (seleccionado.getPregunta3().equals("SI")==true){
+				this.pregunta1_3.setSelected(true);
+			}else {
+				this.pregunta2_3.setSelected(true);
+			}
+			if (seleccionado.getPregunta4().equals("SI")==true){
+				this.pregunta1_4.setSelected(true);
+			}else {
+				this.pregunta2_4.setSelected(true);
+			}
+			if (seleccionado.getPregunta5().equals("SI")==true){
+				this.pregunta1_5.setSelected(true);
+			}else {
+				this.pregunta2_5.setSelected(true);
+			}
+			if (seleccionado.getPregunta6().equals("SI")==true){
+				this.pregunta1_6.setSelected(true);
+			}else {
+				this.pregunta2_6.setSelected(true);
+			}
+			if (seleccionado.getPregunta7().equals("SI")==true){
+				this.pregunta1_7.setSelected(true);
+			}else {
+				this.pregunta2_7.setSelected(true);
+			}
+			if (seleccionado.getPregunta8().equals("SI")==true){
+				this.pregunta1_8.setSelected(true);
+			}else {
+				this.pregunta2_8.setSelected(true);
+			}
+			if (seleccionado.getPregunta9().equals("SI")==true){
+				this.pregunta1_9.setSelected(true);
+			}else {
+				this.pregunta2_9.setSelected(true);
+			}
+			if (seleccionado.getPregunta10().equals("SI")==true){
+				this.pregunta1_10.setSelected(true);
+			}else {
+				this.pregunta2_10.setSelected(true);
+			}
+			if (seleccionado.getPregunta11().equals("SI")==true){
+				this.pregunta1_11.setSelected(true);
+			}else {
+				this.pregunta2_11.setSelected(true);
+			}
+			if (seleccionado.getPregunta12().equals("SI")==true){
+				this.pregunta1_12.setSelected(true);
+			}else {
+				this.pregunta2_12.setSelected(true);
+			}
+			if (seleccionado.getPregunta13().equals("SI")==true){
+				this.pregunta1_13.setSelected(true);
+			}else {
+				this.pregunta2_13.setSelected(true);
+			}
+			if (seleccionado.getPregunta14().equals("SI")==true){
+				this.pregunta1_14.setSelected(true);
+			}else {
+				this.pregunta2_14.setSelected(true);
+			}
+			if (seleccionado.getPregunta15().equals("SI")==true){
+				this.pregunta1_15.setSelected(true);
+			}else {
+				this.pregunta2_15.setSelected(true);
+			}
+			if (seleccionado.getPregunta16().equals("SI")==true){
+				this.pregunta1_16.setSelected(true);
+			}else {
+				this.pregunta2_16.setSelected(true);
+			}
+			if (seleccionado.getPregunta17().equals("SI")==true){
+				this.pregunta1_17.setSelected(true);
+			}else {
+				this.pregunta2_17.setSelected(true);
+			}
+			if (seleccionado.getPregunta18().equals("SI")==true){
+				this.pregunta1_18.setSelected(true);
+			}else {
+				this.pregunta2_18.setSelected(true);
+			}
+			if (seleccionado.getPregunta19().equals("SI")==true){
+				this.pregunta1_19.setSelected(true);
+			}else {
+				this.pregunta2_19.setSelected(true);
+			}
+			if (seleccionado.getPregunta20().equals("SI")==true){
+				this.pregunta1_20.setSelected(true);
+			}else {
+				this.pregunta2_20.setSelected(true);
+			}
+			if (seleccionado.getPregunta21().equals("SI")==true){
+				this.pregunta1_21.setSelected(true);
+			}else {
+				this.pregunta2_21.setSelected(true);
+			}
+			if (seleccionado.getPregunta22().equals("SI")==true){
+				this.pregunta1_22.setSelected(true);
+			}else {
+				this.pregunta2_22.setSelected(true);
+			}
+			if (seleccionado.getPregunta23().equals("SI")==true){
+				this.pregunta1_23.setSelected(true);
+			}else {
+				this.pregunta2_23.setSelected(true);
+			}
+			if (seleccionado.getPregunta23().equals("SI")==true){
+				this.pregunta1_23.setSelected(true);
+			}else {
+				this.pregunta2_23.setSelected(true);
+			}
+			if (seleccionado.getPregunta24().equals("SI")==true){
+				this.pregunta1_24.setSelected(true);
+			}else {
+				this.pregunta2_24.setSelected(true);
+			}
+			if (seleccionado.getPregunta25().equals("SI")==true){
+				this.pregunta1_25.setSelected(true);
+			}else {
+				this.pregunta2_25.setSelected(true);
+			}
+			if (seleccionado.getPregunta26().equals("SI")==true){
+				this.pregunta1_26.setSelected(true);
+			}else {
+				this.pregunta2_26.setSelected(true);
+			}
+			if (seleccionado.getPregunta27().equals("SI")==true){
+				this.pregunta1_27.setSelected(true);
+			}else {
+				this.pregunta2_27.setSelected(true);
+			}
+			if (seleccionado.getPregunta28().equals("SI")==true){
+				this.pregunta1_28.setSelected(true);
+			}else {
+				this.pregunta2_28.setSelected(true);
+			}
+			if (seleccionado.getPregunta29().equals("SI")==true){
+				this.pregunta1_29.setSelected(true);
+			}else {
+				this.pregunta2_29.setSelected(true);
+			}
+			if (seleccionado.getPregunta30().equals("SI")==true){
+				this.pregunta1_30.setSelected(true);
+			}else {
+				this.pregunta2_30.setSelected(true);
+			}
+			if (seleccionado.getPregunta31().equals("SI")==true){
+				this.pregunta1_31.setSelected(true);
+			}else {
+				this.pregunta2_31.setSelected(true);
+			}
+			if (seleccionado.getPregunta32().equals("SI")==true){
+				this.pregunta1_32.setSelected(true);
+			}else {
+				this.pregunta2_32.setSelected(true);
+			}
+			if (seleccionado.getPreguntaEX1().equals("SI")==true){
+				this.preguntaExclusion1_1.setSelected(true);
+			}else {
+				this.preguntaExclusion2_1.setSelected(true);
+			}
+			if (seleccionado.getPreguntaEX2().equals("SI")==true){
+				this.preguntaExclusion1_2.setSelected(true);
+			}else {
+				this.preguntaExclusion2_2.setSelected(true);
+			}
+			if (seleccionado.getPreguntaEX3().equals("SI")==true){
+				this.preguntaExclusion1_3.setSelected(true);
+			}else {
+				this.preguntaExclusion2_3.setSelected(true);
+			}
+			txtApto.setText(seleccionado.getApto());
+			
+			if (seleccionado.getApto().equals("SI")==true){
+				this.si.setVisible(true);
+				this.no.setVisible(false);
+			}else {
+				if (seleccionado.getApto().equals("NO")==true){
+					this.no.setVisible(true);
+					this.si.setVisible(false);
+				}else {
+					this.si.setVisible(false);
+					this.no.setVisible(false);
+				}
+			}
+			
+		
+			
+			txtNum_Formulario.setText(""+seleccionado.getNum_formulario()+"");
+
+
+		}
+	}
+	public void AbrirVentanaDonaciones2(){
+		this.ProgramaPrincipal.mostrarVentanaDonaciones2();
+		this.ventana.close();
+	
 	}
 
 }

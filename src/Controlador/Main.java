@@ -75,7 +75,7 @@ public class Main extends Application {
             AnchorPane ventanaTres = (AnchorPane) loader.load();
             /* Creamos la segunda ventana como otro stage */
             Stage ventana2 = new Stage();
-            ventana2.setTitle("Pantalla Donaciones");
+            ventana2.setTitle("Pantalla Formulario");
             /* Le decimos a la ventana quién es la ventana original */
             ventana2.initOwner(stagePrincipal);
             Scene scene = new Scene(ventanaTres);
@@ -85,6 +85,27 @@ public class Main extends Application {
             controller2.setStagePrincipal(ventana2);
 
             ventana2.show();
+
+        } catch (Exception e) {
+            //tratar la excepción
+        }
+    }
+    public void mostrarVentanaDonaciones2() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UIPantallaDonaciones2.fxml"));
+            AnchorPane ventanaTres = (AnchorPane) loader.load();
+            /* Creamos la segunda ventana como otro stage */
+            Stage ventana3 = new Stage();
+            ventana3.setTitle("Pantalla Donaciones");
+            /* Le decimos a la ventana quién es la ventana original */
+            ventana3.initOwner(stagePrincipal);
+            Scene scene = new Scene(ventanaTres);
+            ventana3.setScene(scene);
+
+            PantallaDonaciones controller2 = loader.getController();
+            controller2.setStagePrincipal(ventana3);
+
+            ventana3.show();
 
         } catch (Exception e) {
             //tratar la excepción
