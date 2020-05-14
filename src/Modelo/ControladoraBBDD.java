@@ -216,6 +216,35 @@ public class ControladoraBBDD {
 		}
 		return listaFormulario;
 	}
+	public ObservableList<String> consultarAñoDonante (int numDonante) throws SQLException{
+		
+		ObservableList<String> listaAñoDonantes =  FXCollections.observableArrayList();
+		
+		Statement stm = conexion.createStatement();
+		String selectsql = "SELECT TO_CHAR(FECHA_NACIMIENTO,'YYYY') FROM "+usr+".DONANTE WHERE NUM_DONANTE=?";
+
+		PreparedStatement pstmt = conexion.prepareStatement (selectsql);
+		pstmt.setInt(1, numDonante);
+		
+		ResultSet resultado = pstmt.executeQuery();
+		
+		try{
+			while (resultado.next()) {
+				String fechaDonante = resultado.getString(1);
+
+				listaAñoDonantes.add(fechaDonante);
+			}
+			
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		return listaAñoDonantes;
+		
+	}
 	public int InsertarFoto(File archivofoto) throws SQLException{
 
 		try{

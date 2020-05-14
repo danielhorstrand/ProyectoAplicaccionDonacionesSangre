@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import Controlador.Main;
 import Modelo.ControladoraBBDD;
 import Modelo.Donacion;
-import Modelo.Donantes;
-import Modelo.Formulario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class PantallaDonacionesDos {
@@ -31,6 +28,8 @@ public class PantallaDonacionesDos {
 	private Button btnContinuar;
 	@FXML
 	private Button btnVolver;
+	@FXML
+	private Button btnBorrar;
 	@FXML
 	private TextField txtNum_donante;
 	@FXML
@@ -51,9 +50,6 @@ public class PantallaDonacionesDos {
 	private TextField txtVolumen;
 	@FXML
 	private DatePicker fecha;
-	
-	@FXML
-	private ImageView borrar;
 	
 	@FXML
 	private TableView<Donacion> tabla;
@@ -81,15 +77,16 @@ public class PantallaDonacionesDos {
 	ObservableList<String> datos2 = FXCollections.observableArrayList("SANGRE","AFERESIS");
 	ObservableList<Donacion> datos = FXCollections.observableArrayList();
 	
-	private boolean edicion;
-	private int indiceedicion;
-	
 	public void initialize (int numero) throws SQLException{
 				
 		ControladoraBBDD conDonaciones = new ControladoraBBDD();
 
 		datos = conDonaciones.ConsultaDonaciones();
-		
+    	String numero2= ""+numero+"";
+    	
+    	txtNum_donante.setText(numero2);
+    	Tipo_donacion.setItems(datos2);
+    	
 		tabla.setItems(datos);
 		
 		col_num_donacion.setCellValueFactory(new PropertyValueFactory<Donacion,Integer>("num_donacion"));
@@ -103,10 +100,6 @@ public class PantallaDonacionesDos {
 		col_volumen.setCellValueFactory(new PropertyValueFactory<Donacion,Integer>("volumen"));
 		col_fecha.setCellValueFactory(new PropertyValueFactory<Donacion,String>("fecha"));
 		
-    	String numero2= ""+numero+"";
-    	
-    	txtNum_donante.setText(numero2);
-    	Tipo_donacion.setItems(datos2);
 
 	}
 	public void setStagePrincipal(Stage ventana) {
@@ -116,5 +109,9 @@ public class PantallaDonacionesDos {
 	public void setProgramaPrincipal(Main ProgramaPrincipal) {
         this.ProgramaPrincipal = ProgramaPrincipal;
     }
+	public void closeWindow(){
+		this.ProgramaPrincipal.mostrarVentanaPrincipal();
+		this.ventana.close();
+	}
 
 }

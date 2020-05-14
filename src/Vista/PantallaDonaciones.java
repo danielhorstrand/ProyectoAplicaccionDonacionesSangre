@@ -1,6 +1,7 @@
 package Vista;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import Controlador.Main;
@@ -536,29 +537,50 @@ public class PantallaDonaciones {
 		String fecha1 = fecha.getValue().format(isoFecha);
 		String fecha_exclusion = "";
 		
-		if ( preguntaEX1.equals("SI") || preguntaEX2.equals("SI")  || preguntaEX3.equals("SI") ){
+		int num_formulario2 = Integer.parseInt(txtNum_Formulario.getText());
+		int num_donante2 = (int) num_donante.getValue();
+		
+		ObservableList<String> listaAñoDonantes =  FXCollections.observableArrayList();
+		
+		listaAñoDonantes = conDonaciones.consultarAñoDonante(num_donante2);
+		
+		String fechaActual = fecha1.substring(0,4);
+		
+		boolean añosValidosDonante = añosValidos(listaAñoDonantes.get(0),fechaActual);
+		
+		if ( preguntaEX1.equals("SI") || preguntaEX2.equals("SI")  || preguntaEX3.equals("SI")){
 			txtApto.setText("NO");
 			estado_donacion="EXCLUIDO";
 			fecha_exclusion = fecha.getValue().format(isoFecha);
 			this.no.setVisible(true);
 			this.si.setVisible(false);
 		}else {
-			if (pregunta1.equals("NO") || pregunta3.equals("NO") || pregunta12.equals("SI") || pregunta14.equals("SI") || pregunta16.equals("SI") || pregunta17.equals("SI") ){
+			if (pregunta1.equals("NO") || pregunta3.equals("NO") || pregunta12.equals("SI") || pregunta14.equals("SI") || pregunta16.equals("SI") || pregunta17.equals("SI")){
 				txtApto.setText("NO");
 				estado_donacion="EXCLUIDO TEMPORAL";
 				fecha_exclusion = fecha.getValue().format(isoFecha);
 				this.no.setVisible(true);
 				this.si.setVisible(false);
 			}else {
-				txtApto.setText("SI");
-				estado_donacion="APTO";
-				this.si.setVisible(true);
-				this.no.setVisible(false);
+				if (añosValidosDonante==true){
+					txtApto.setText("SI");
+					estado_donacion="APTO";
+					this.si.setVisible(true);
+					this.no.setVisible(false);
+				}else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Cuidado!");
+					alert.setHeaderText("Error en la edad!");
+					alert.setContentText("¡Tu edad no es permitida!");
+					alert.showAndWait();
+					txtApto.setText("NO");
+					estado_donacion="EXCLUIDO TEMPORAL";
+					fecha_exclusion = fecha.getValue().format(isoFecha);
+					this.no.setVisible(true);
+					this.si.setVisible(false);
+				}
 			}
 		}
-		
-		int num_formulario2 = Integer.parseInt(txtNum_Formulario.getText());
-		int num_donante2 = (int) num_donante.getValue();
 		
 		int res =0;
 		
@@ -592,6 +614,22 @@ public class PantallaDonaciones {
 				break;
 
 			}  
+	}
+	public boolean añosValidos(String nacimiento,String fechaActual){
+		boolean añoValido = false;
+		
+		int año_nacimiento = Integer.parseInt(nacimiento);
+		int año_Actual = Integer.parseInt(fechaActual);
+		
+		int años = año_Actual-año_nacimiento;
+		
+		if (años>65 || años<15){
+			añoValido = false;
+		}else {
+			añoValido = true;
+		}
+		
+		return añoValido;
 	}
 	public void eliminarFormulario () throws SQLException{
 		
