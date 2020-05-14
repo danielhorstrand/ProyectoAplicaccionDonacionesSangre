@@ -43,6 +43,8 @@ public class pantallaDonantes {
 	@FXML
 	private Button btnBuscar;
 	@FXML
+	private Button btnLimpiar;
+	@FXML
 	private Button btnImprimirPDF;
 	@FXML
 	private Button btnSeleccionar_Imagen;
@@ -143,6 +145,10 @@ public class pantallaDonantes {
 
 	public void initialize () throws SQLException{
 		
+		txtNum_donante.setText("0");
+		txtTelefono1.setText("0");
+		txtTelefono2.setText("0");
+		txtCod_postal.setText("0");
 		Ciclo.setItems(ciclos);
 		CicloBusqueda.setItems(ciclos);
 		Pais_nacimiento.setItems(paises);
@@ -212,7 +218,7 @@ public class pantallaDonantes {
 	public void Guardar() throws SQLException, FileNotFoundException{
 		
 	
-			int num_donante =  Integer.parseInt(txtNum_donante.getText());
+			int num_donante = Integer.parseInt(txtNum_donante.getText());
 			int telefono1 = Integer.parseInt(txtTelefono1.getText());
 			int telefono2 = Integer.parseInt(txtTelefono2.getText());
 			int cod_postal = Integer.parseInt(txtCod_postal.getText());		
@@ -221,7 +227,7 @@ public class pantallaDonantes {
 			String sangre = (String) Grupo_Sanguineo.getValue();
 			String pais = (String) Pais_nacimiento.getValue();
 			
-			if(txtNum_donante.getText().length()==0 || txtNombre.getText().length()==0 || txtApellido1.getText().length()==0 || txtApellido2.getText().length()==0 || txtIdentificacion.getText().length()==0 || txtFecha_nacimiento.getText().length()==0 || pais.equals("-------")==true || txtDireccion.getText().length()==0 || txtPoblacion.getText().length()==0 || txtCod_postal.getText().length()==0 || txtTelefono1.getText().length()==0 || txtTelefono2.getText().length()==0 || ciclo1.equals("-------")==true || txtCorreo.getText().length()==0 || sexo.equals("-------")==true || sangre.equals("-------")==true){
+			if(num_donante==0 || txtNombre.getText().length()==0 || txtApellido1.getText().length()==0 || txtApellido2.getText().length()==0 || txtIdentificacion.getText().length()==0 || txtFecha_nacimiento.getText().length()==0 || pais.equals("-------")==true || txtDireccion.getText().length()==0 || txtPoblacion.getText().length()==0 || cod_postal==0 || telefono1==0 || telefono2==0 || ciclo1.equals("-------")==true || txtCorreo.getText().length()==0 || sexo.equals("-------")==true || sangre.equals("-------")==true){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error!!!");
 				alert.setHeaderText("Observa que hayas introducido todos los datos");
@@ -273,6 +279,12 @@ public class pantallaDonantes {
 	    				
 	    				if(txtNombre.getText()!="" && txtf_ruta.getText()!=""){
 	    					res = con.guardarDonante(nuevo,file);
+	    				}else{
+	    					Alert alert = new Alert(AlertType.ERROR);
+	    					alert.setTitle("Error!");
+	    					alert.setHeaderText("Introduce foto!");
+	    					alert.setContentText("¡Ha habido un problema al introducir la foto!");
+	    					alert.showAndWait();
 	    				}
     					
     					switch (res){
@@ -297,11 +309,19 @@ public class pantallaDonantes {
     						break;
 
     					default:
-    						alert = new Alert(AlertType.ERROR);
-    						alert.setTitle("Error!");
-    						alert.setHeaderText("Inserción NOK!");
-    						alert.setContentText("¡Ha habido un problema al realizar la inserción!");
-    						alert.showAndWait();
+    						if (txtCorreo.getText()!="%@%.com" || txtCorreo.getText()!="%@%.es"){
+        						alert = new Alert(AlertType.ERROR);
+        						alert.setTitle("Error!");
+        						alert.setHeaderText("Correo NOK!");
+        						alert.setContentText("¡Ha habido un problema con el correo introducido!");
+        						alert.showAndWait();
+    						}else {
+        						alert = new Alert(AlertType.ERROR);
+        						alert.setTitle("Error!");
+        						alert.setHeaderText("Inserción NOK!");
+        						alert.setContentText("¡Ha habido un problema al realizar la inserción!");
+        						alert.showAndWait();
+							}
     						break;
 
     					}
@@ -326,9 +346,15 @@ public class pantallaDonantes {
 		txtCorreo.setText("");
         Grupo_Sanguineo.setValue("-------");
 		Sexo.setValue("-------");
+		foto.setImage(null);
 
 		edicion = false;
 		indiceedicion = 0;
+	}
+	public void LimpiarCamposBusqueda(){
+		this.txtIdentificacionBusqueda.setText("");
+		this.CicloBusqueda.setValue("-------");
+		this.Grupo_SanguineoBusqueda.setValue("-------");
 	}
 	public void Editar() throws SQLException{
 

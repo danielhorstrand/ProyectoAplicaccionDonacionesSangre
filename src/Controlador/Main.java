@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import Vista.MenuPrincipal;
 import Vista.PantallaDonaciones;
+import Vista.PantallaDonacionesDos;
 import Vista.pantallaDonantes;
 import Controlador.Main;
 import javafx.application.Application;
@@ -83,27 +84,29 @@ public class Main extends Application {
 
             PantallaDonaciones controller2 = loader.getController();
             controller2.setStagePrincipal(ventana2);
-
+            controller2.setProgramaPrincipal(this);
             ventana2.show();
 
         } catch (Exception e) {
             //tratar la excepción
         }
     }
-    public void mostrarVentanaDonaciones2() {
+    public void mostrarVentanaDonaciones2(int numero) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UIPantallaDonaciones2.fxml"));
-            AnchorPane ventanaTres = (AnchorPane) loader.load();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../vista/UiPantallaDonaciones2.fxml"));
+            AnchorPane ventanaCuatro = (AnchorPane) loader.load();
             /* Creamos la segunda ventana como otro stage */
             Stage ventana3 = new Stage();
             ventana3.setTitle("Pantalla Donaciones");
             /* Le decimos a la ventana quién es la ventana original */
             ventana3.initOwner(stagePrincipal);
-            Scene scene = new Scene(ventanaTres);
+            Scene scene = new Scene(ventanaCuatro);
             ventana3.setScene(scene);
 
-            PantallaDonaciones controller2 = loader.getController();
-            controller2.setStagePrincipal(ventana3);
+            PantallaDonacionesDos controller3 = loader.getController();
+            controller3.setStagePrincipal(ventana3);
+            controller3.setProgramaPrincipal(this);
+            controller3.initialize(numero);
 
             ventana3.show();
 

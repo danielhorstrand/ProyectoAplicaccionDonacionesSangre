@@ -1,24 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="444.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.PantallaDonacionesDos">
+<AnchorPane prefHeight="415.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.PantallaDonacionesDos">
    <children>
-      <Pane prefHeight="576.0" prefWidth="460.0" style="-fx-background-color: B2F3EA;">
+      <Pane prefHeight="434.0" prefWidth="1088.0" style="-fx-background-color: B2F3EA;">
          <children>
-            <Label layoutX="166.0" prefHeight="41.0" prefWidth="129.0" text="Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
+            <Label layoutX="166.0" prefHeight="49.0" prefWidth="209.0" text="Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                <font>
-                  <Font name="Monospaced Bold Italic" size="21.0" />
+                  <Font name="Monospaced Bold Italic" size="32.0" />
                </font>
             </Label>
-            <Button layoutX="275.0" layoutY="511.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="171.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Continuar">
+            <Button fx:id="btnContinuar" layoutX="819.0" layoutY="379.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Continuar">
                <font>
                   <Font name="Monospaced Bold" size="13.0" />
                </font>
+            </Button>
+            <Label layoutX="761.0" layoutY="15.0" text="Nº Donante:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNum_donante" editable="false" layoutX="857.0" layoutY="16.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="910.0" layoutY="16.0" text="Nº Donacion:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNum_donacion" editable="false" layoutX="1014.0" layoutY="17.0" prefHeight="25.0" prefWidth="63.0" />
+            <Label layoutX="761.0" layoutY="52.0" text="Codigo Colecta:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCod_colecta" editable="false" layoutX="948.0" layoutY="53.0" prefHeight="25.0" prefWidth="129.0" />
+            <Label layoutX="761.0" layoutY="92.0" text="Tipo Donacion:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="761.0" layoutY="131.0" text="Pulso:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPulso" editable="false" layoutX="857.0" layoutY="132.0" prefHeight="25.0" prefWidth="51.0" />
+            <ChoiceBox fx:id="Tipo_donacion" layoutX="949.0" layoutY="93.0" prefHeight="25.0" prefWidth="129.0" />
+            <Label layoutX="761.0" layoutY="167.0" text="TA SIST:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTa_sist" editable="false" layoutX="857.0" layoutY="168.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="761.0" layoutY="203.0" text="TA DIAST:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTa_diast" editable="false" layoutX="858.0" layoutY="205.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="930.0" layoutY="132.0" text="HB CAP:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtHb_cap" editable="false" layoutX="1027.0" layoutY="133.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="930.0" layoutY="166.0" text="HB VEN:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtHb_ven" editable="false" layoutX="1027.0" layoutY="167.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="930.0" layoutY="203.0" text="Volumen:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtVolumen" editable="false" layoutX="1027.0" layoutY="204.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="500.0" layoutY="15.0" text="Fecha:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="fecha" layoutX="566.0" layoutY="17.0" />
+            <Button fx:id="btnVolver" layoutX="981.0" layoutY="379.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Volver">
+               <font>
+                  <Font name="Monospaced Bold" size="13.0" />
+               </font>
+            </Button>
+            <TableView fx:id="tabla" layoutX="14.0" layoutY="57.0" prefHeight="363.0" prefWidth="726.0">
+              <columns>
+                <TableColumn fx:id="col_num_donacion" prefWidth="87.0" text="Nº Donacion" />
+                <TableColumn fx:id="col_colecta" prefWidth="46.0" text="Colecta" />
+                  <TableColumn fx:id="col_tipo_donacion" prefWidth="74.0" text="Donacion" />
+                  <TableColumn fx:id="col_pulso" prefWidth="58.0" text="Pulso" />
+                  <TableColumn fx:id="col_ta_sist" prefWidth="70.0" text="Ta Sist" />
+                  <TableColumn fx:id="col_ta_diast" prefWidth="65.0" text="Ta Diast" />
+                  <TableColumn fx:id="col_hb_cap" prefWidth="67.0" text="Hb Cap" />
+                  <TableColumn fx:id="col_hb_ven" prefWidth="66.0" text="Hb Ven" />
+                  <TableColumn fx:id="col_volumen" prefWidth="91.0" text="Volumen" />
+                  <TableColumn fx:id="col_fecha" prefWidth="101.0" text="Fecha" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnBorrar" layoutX="1032.0" layoutY="239.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="25.0" prefWidth="21.0">
+               <graphic>
+                  <ImageView fx:id="borrar" fitHeight="25.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@goma2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </Pane>

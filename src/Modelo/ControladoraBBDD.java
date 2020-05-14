@@ -16,6 +16,8 @@ import java.util.Properties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControladoraBBDD {
 	private String url= "";
@@ -177,6 +179,43 @@ public class ControladoraBBDD {
 		}
 		return listaFormulario;
 	}
+	public ObservableList<Donacion>  ConsultaDonaciones() throws SQLException{
+		//Preparo la conexión para ejecutar sentencias SQL de tipo update
+
+		ObservableList<Donacion> listaFormulario =  FXCollections.observableArrayList();
+		
+		Statement stm = conexion.createStatement();
+		String selectsql = "SELECT NUM_DONACION,COD_COLECTA,TIPO_DONACION,PULSO,TA_SIST,TA_DIAST,HB_CAP,HB_VEN,VOLUMEN,TO_CHAR(FECHA,'DD/MM/YYYY') FROM "+usr+".DONACION";
+
+		ResultSet resultado = stm.executeQuery(selectsql);
+	
+		try{
+			while (resultado.next()) {
+				int num_donacion = resultado.getInt(1);
+				int codigo = resultado.getInt(2);
+				String tipo_donacion = resultado.getString(3);
+				int pulso = resultado.getInt(4);
+				int ta_sist = resultado.getInt(5);
+				int ta_diast = resultado.getInt(6);
+				int hb_cap = resultado.getInt(7);
+				int hb_ven = resultado.getInt(8);
+				int volumen = resultado.getInt(9);
+				String fecha = resultado.getString(10);
+				
+
+				Donacion n = new Donacion (num_donacion, codigo, tipo_donacion, pulso, ta_sist, ta_diast, hb_cap, hb_ven, volumen, fecha);
+				listaFormulario.add(n);
+			}
+			
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		return listaFormulario;
+	}
 	public int InsertarFoto(File archivofoto) throws SQLException{
 
 		try{
@@ -219,9 +258,9 @@ public class ControladoraBBDD {
 	public int guardarDonante (Donantes donante,File archivoFoto)  throws SQLException, FileNotFoundException{
 		
 			String insertsql = "INSERT INTO "+usr+".DONANTE (NUM_DONANTE,NOMBRE,APELLIDO1,APELLIDO2,IDENTIFICACION,FECHA_NACIMIENTO,PAIS_NACIMIENTO,DIRECCION,POBLACION,CODIGO_POSTAL,TELEFONO,TELEFONO2,FOTO,CICLO,CORREO_ELECTRONICO,SEXO,GRUPO_SANGUINEO)VALUES (?,?,?,?,?,TO_DATE( ? , 'DD/MM/YYYY' ),?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			FileInputStream convertir_imagen = new FileInputStream (archivoFoto);
 			
-			PreparedStatement pstmt = conexion.prepareStatement (insertsql);
 			pstmt.setInt(1, donante.getNum_donante());
 			pstmt.setString(2, donante.getNombre());
 			pstmt.setString(3, donante.getApellido1());
@@ -239,7 +278,6 @@ public class ControladoraBBDD {
 			pstmt.setString(15, donante.getCorreo());
 			pstmt.setString(16, donante.getSexo());
 			pstmt.setString(17, donante.getGrupo_sanguineo());
-
 		
 		try{
 			int resultado = pstmt.executeUpdate();
@@ -647,6 +685,35 @@ public class ControladoraBBDD {
 	}
 		
 	}
+	public ObservableList<Integer> consultaRellena (int codigo) throws SQLException{
+		
+		ObservableList<Integer> listaDonantes =  FXCollections.observableArrayList();
+		Statement stm = conexion.createStatement();
+		
+		String selectsql = "SELECT NUM_DONANTE FROM "+usr+".RELLENA WHERE CODIGO=?";
+
+		PreparedStatement pstmt = conexion.prepareStatement (selectsql);
+		pstmt.setInt(1, codigo);
+		
+		ResultSet resultado = pstmt.executeQuery();
+	
+		try{
+			while (resultado.next()) {
+				int num_donante = resultado.getInt(1);
+
+				listaDonantes.add(num_donante);
+			}
+			
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		return listaDonantes;
+	}
+	
 	public void guardarDonacion(Donacion formulario) throws SQLException{
 		
 	}

@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import Controlador.Main;
 import Modelo.ControladoraBBDD;
-import Modelo.Donantes;
 import Modelo.Formulario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,18 +26,20 @@ import javafx.stage.Stage;
 
 public class PantallaDonaciones {
 	
-	private Controlador.Main ProgramaPrincipal;
+	private Main ProgramaPrincipal;
+	
+	private Stage ventana;
+	
 	@FXML
 	private Button btnContinuar;
+	@FXML
+	private Button btnGuardar;
 	@FXML
 	private Button btnVolver;
 	@FXML
 	private Button btnEliminar;
 	@FXML
-	private Button btnBorrar;
-	
-	private Stage ventana;
-	
+	private Button btnBorrar;	
 	@FXML
 	private ImageView si;
 	@FXML
@@ -301,15 +302,16 @@ public class PantallaDonaciones {
 		}
 
 	}    
+    public void setProgramaPrincipal(Main ProgramaPrincipal) {
+        this.ProgramaPrincipal = ProgramaPrincipal;
+    }
 	public void setStagePrincipal(Stage ventana) {
 		// TODO Auto-generated method stub
-		
 		this.ventana = ventana;
 	}
 	public void closeWindow(){
 		this.ventana.close();
 	}
-	 
 	public void GuardarFormulario(ActionEvent event) throws SQLException{
 		
 		ControladoraBBDD conDonaciones = new ControladoraBBDD();
@@ -538,15 +540,20 @@ public class PantallaDonaciones {
 			txtApto.setText("NO");
 			estado_donacion="EXCLUIDO";
 			fecha_exclusion = fecha.getValue().format(isoFecha);
-			
+			this.no.setVisible(true);
+			this.si.setVisible(false);
 		}else {
 			if (pregunta1.equals("NO") || pregunta3.equals("NO") || pregunta12.equals("SI") || pregunta14.equals("SI") || pregunta16.equals("SI") || pregunta17.equals("SI") ){
 				txtApto.setText("NO");
 				estado_donacion="EXCLUIDO TEMPORAL";
 				fecha_exclusion = fecha.getValue().format(isoFecha);
+				this.no.setVisible(true);
+				this.si.setVisible(false);
 			}else {
 				txtApto.setText("SI");
 				estado_donacion="APTO";
+				this.si.setVisible(true);
+				this.no.setVisible(false);
 			}
 		}
 		
@@ -562,7 +569,7 @@ public class PantallaDonaciones {
 		case 0:
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("OK!");
-			alert.setHeaderText("Modificación OK!");
+			alert.setHeaderText("FORMULARIO OK!");
 			alert.setContentText("¡Formulario guardado con éxito!");
 			alert.showAndWait();
 			conDonaciones.guardarRellena(num_formulario2, num_donante2);
@@ -585,9 +592,6 @@ public class PantallaDonaciones {
 				break;
 
 			}  
-		if (txtApto.getText().equals("SI")==true){
-			AbrirVentanaDonaciones2();
-		}
 	}
 	public void eliminarFormulario () throws SQLException{
 		
@@ -605,7 +609,7 @@ public class PantallaDonaciones {
 		Borrar();
 		
 	}
-	public void Borrar(){
+	public void Borrar() throws SQLException{
 
 			this.pregunta1_1.setSelected(false);
 			this.pregunta2_1.setSelected(false);
@@ -682,6 +686,9 @@ public class PantallaDonaciones {
 			this.txtApto.setText("");
 			this.si.setVisible(false);
 			this.no.setVisible(false);
+			this.txtNum_Formulario.setText("");
+			initialize();
+			
 
 		
 		edicion = false;
@@ -691,6 +698,7 @@ public class PantallaDonaciones {
 
 		int index = tabla.getSelectionModel().getSelectedIndex();
 
+		ControladoraBBDD conDonaciones = new ControladoraBBDD();
 
 		if( index >= 0){
 
@@ -881,6 +889,11 @@ public class PantallaDonaciones {
 			}
 			txtApto.setText(seleccionado.getApto());
 			
+			ObservableList<Integer> numero_donante = conDonaciones.consultaRellena(seleccionado.getNum_formulario());
+			
+			this.num_donante.setItems(numero_donante);
+			num_donante.setValue(numero_donante.get(0));
+			
 			if (seleccionado.getApto().equals("SI")==true){
 				this.si.setVisible(true);
 				this.no.setVisible(false);
@@ -902,8 +915,13 @@ public class PantallaDonaciones {
 		}
 	}
 	public void AbrirVentanaDonaciones2(){
-		this.ProgramaPrincipal.mostrarVentanaDonaciones2();
-		this.ventana.close();
+
+		int num_donante2 = (int) num_donante.getValue();
+		
+		if (txtApto.getText().equals("SI")==true){
+			this.ProgramaPrincipal.mostrarVentanaDonaciones2(num_donante2);
+			this.ventana.close();
+		}
 	
 	}
 
