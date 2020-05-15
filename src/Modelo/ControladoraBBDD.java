@@ -334,6 +334,87 @@ public class ControladoraBBDD {
 		}
 
 	}
+	public int guardarDonacion (Donacion donacion) throws SQLException{
+		
+		String insertsql = "INSERT INTO "+usr+".DONACION VALUES (?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+		
+		pstmt.setInt(1, donacion.getNum_donacion());
+		pstmt.setInt(2, donacion.getCodigo_colecta());
+		pstmt.setString(3, donacion.getTipo_donacion());
+		pstmt.setInt(4, donacion.getPulso());
+		pstmt.setInt(5, donacion.getTa_sist());
+		pstmt.setInt(6, donacion.getTa_diast());
+		pstmt.setInt(7, donacion.getHb_cap());
+		pstmt.setInt(8, donacion.getHb_ven());
+		pstmt.setInt(9, donacion.getVolumen());
+		pstmt.setString(10, donacion.getFecha());
+	
+		try{
+			int resultado = pstmt.executeUpdate();
+
+			if(resultado != 1)
+				System.out.println("Error en la inserción " + resultado);
+		    else
+				System.out.println("Donacion realizada con éxito!!!");
+		
+			return 0;
+		}catch(SQLException sqle){
+
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+			System.out.println(codeErrorSQL);
+
+			if(codeErrorSQL.equals("ORA-00001")){
+				System.out.println("ERROR.La Donacion que intentas introducir ya existe, o su clave 'Num_Donacion' ya esta inscrita!");
+			    return 1;
+			}
+			else{
+				System.out.println("Ha habido algún problema con  Oracle al hacer la creación de tabla");
+			    return 2;
+			}
+		}
+	}
+	public int modificarDonacion (Donacion donacion)  throws SQLException, FileNotFoundException{
+		Statement stm = conexion.createStatement();
+		
+		String insertsql = "UPDATE "+usr+".DONACION SET COD_COLECTA=?, TIPO_DONACION=?, PULSO=?, TA_SIST=?, TA_DIAST=?, HB_CAP=?, HB_VEN=?, VOLUMEN=?, FECHA=? WHERE NUM_DONACION=?";
+		
+		PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+		pstmt.setInt(1, donacion.getCodigo_colecta());
+		pstmt.setString(2, donacion.getTipo_donacion());
+		pstmt.setInt(3, donacion.getPulso());
+		pstmt.setInt(4, donacion.getTa_sist());
+		pstmt.setInt(5, donacion.getTa_diast());
+		pstmt.setInt(6, donacion.getHb_cap());
+		pstmt.setInt(7, donacion.getHb_ven());
+		pstmt.setInt(8, donacion.getVolumen());
+		pstmt.setString(9, donacion.getFecha());
+		pstmt.setInt(10, donacion.getNum_donacion());
+
+		try{
+			int resultado = pstmt.executeUpdate();
+			if(resultado != 1)
+				System.out.println("Error en la modificacion " + resultado);
+		    else
+				System.out.println("Donacion actualizada con éxito!!!");
+
+			return 0;
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			if(codeErrorSQL.equals("ORA-00001") ){
+				System.out.println("Ya existe una Donacion con  ese Numero!!");
+				return 1;
+			}
+			else{
+				System.out.println("Ha habido algún problema con  Oracle al hacer la insercion");
+				return 2;
+			}
+	}
+	}
 	public byte[] LeerFoto(int num_donante) throws SQLException{
 
 		byte[] byteImage = null;
@@ -704,7 +785,7 @@ public class ControladoraBBDD {
 		System.out.println(codeErrorSQL);
 
 		if(codeErrorSQL.equals("ORA-00001")){
-			System.out.println("ERROR.El formulario que intentas introducir ya existe, o su clave ya esta inscrita!");
+			System.out.println("ERROR.La relacion que intentas introducir ya existe, o su clave ya esta inscrita!");
 		    return 1;
 		}
 		else{
@@ -712,6 +793,39 @@ public class ControladoraBBDD {
 		    return 2;
 		}
 	}
+		
+	}
+    public int guardarRealiza(int numDonante,int numDonacion) throws SQLException{
+	 	
+	    	String insertsql = "INSERT INTO "+usr+".REALIZA VALUES (?,?)";
+		    PreparedStatement pstmt = conexion.prepareStatement (insertsql);
+		    pstmt.setInt(1, numDonante);
+		    pstmt.setInt(2, numDonacion);		
+		
+    	try{
+	     	int resultado = pstmt.executeUpdate();
+
+		    if(resultado != 1)
+			   System.out.println("Error en la inserción " + resultado);
+	        else
+			   System.out.println("Relacion creada con éxito!!!");
+		
+		    return 0;
+	    }catch(SQLException sqle){
+
+		    int pos = sqle.getMessage().indexOf(":");
+		    String codeErrorSQL = sqle.getMessage().substring(0,pos);
+		    System.out.println(codeErrorSQL);
+
+		    if(codeErrorSQL.equals("ORA-00001")){
+			   System.out.println("ERROR.La relacion que intentas introducir ya existe, o su clave ya esta inscrita!");
+		       return 1;
+		    }
+		    else{
+			   System.out.println("Ha habido algún problema con  Oracle al hacer la creación de tabla");
+		       return 2;
+		    }
+	    }
 		
 	}
 	public ObservableList<Integer> consultaRellena (int codigo) throws SQLException{
@@ -742,14 +856,11 @@ public class ControladoraBBDD {
 		}
 		return listaDonantes;
 	}
-	
-	public void guardarDonacion(Donacion formulario) throws SQLException{
-		
-	}
 	public void informeDonantes() throws SQLException{
 		
 	}
 	public void informeDonaciones() throws SQLException{
 		
 	}
+
 }

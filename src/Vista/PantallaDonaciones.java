@@ -959,6 +959,13 @@ public class PantallaDonaciones {
 		if (txtApto.getText().equals("SI")==true){
 			this.ProgramaPrincipal.mostrarVentanaDonaciones2(num_donante2);
 			this.ventana.close();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText("No APTO!");
+			alert.setContentText("¡El donante no es apto para hacer una donacion.!");
+			alert.showAndWait();
+
 		}
 	
 	}
