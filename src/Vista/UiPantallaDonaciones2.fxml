@@ -14,14 +14,14 @@
 
 <AnchorPane prefHeight="415.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.PantallaDonacionesDos">
    <children>
-      <Pane prefHeight="434.0" prefWidth="1088.0" style="-fx-background-color: B2F3EA;">
+      <Pane prefHeight="506.0" prefWidth="1088.0" style="-fx-background-color: B2F3EA;">
          <children>
             <Label layoutX="166.0" prefHeight="49.0" prefWidth="209.0" text="Donaciones" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
                <font>
                   <Font name="Monospaced Bold Italic" size="32.0" />
                </font>
             </Label>
-            <Button fx:id="btnContinuar" layoutX="819.0" layoutY="379.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="41.0" prefWidth="144.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Continuar">
+            <Button fx:id="btnContinuar" layoutX="819.0" layoutY="444.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="41.0" prefWidth="144.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Continuar">
                <font>
                   <Font name="Monospaced Bold" size="13.0" />
                </font>
@@ -91,12 +91,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="btnVolver" layoutX="981.0" layoutY="379.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Volver">
+            <Button fx:id="btnVolver" layoutX="981.0" layoutY="444.0" mnemonicParsing="false" onAction="#cerrarVentan" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: white; -fx-border-color: #0082ff; -fx-background-insets: 0; -fx-border-radius: 10; -fx-background-radius: 10;" text="Volver">
                <font>
                   <Font name="Monospaced Bold" size="13.0" />
                </font>
             </Button>
-            <TableView fx:id="tabla" layoutX="14.0" layoutY="57.0" prefHeight="363.0" prefWidth="726.0">
+            <TableView fx:id="tabla" layoutX="14.0" layoutY="57.0" onMouseClicked="#Editar" prefHeight="428.0" prefWidth="722.0">
               <columns>
                 <TableColumn fx:id="col_num_donacion" prefWidth="87.0" text="Nº Donacion" />
                 <TableColumn fx:id="col_colecta" prefWidth="46.0" text="Colecta" />
@@ -120,6 +120,14 @@
                </graphic>
             </Button>
             <TextField fx:id="txtFecha" layoutX="591.0" layoutY="17.0" />
+            <TableView fx:id="tabla2" layoutX="743.0" layoutY="278.0" prefHeight="136.0" prefWidth="340.0">
+              <columns>
+                <TableColumn fx:id="col_num_donante" prefWidth="51.0" text="Nº" />
+                <TableColumn fx:id="col_nombre" prefWidth="91.0" text="Nombre" />
+                  <TableColumn fx:id="col_apellido1" prefWidth="97.0" text="Apellido" />
+                  <TableColumn fx:id="col_grupo_sanguineo" prefWidth="96.0" text="Tipo Sanguineo" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>

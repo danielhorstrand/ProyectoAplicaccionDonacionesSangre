@@ -13,6 +13,7 @@ import Modelo.Donacion;
 import Modelo.Donantes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -82,9 +83,22 @@ public class PantallaDonacionesDos {
 	private TableColumn<Donacion,Integer> col_volumen;
 	@FXML
 	private TableColumn<Donacion,String> col_fecha;
+	
+	@FXML
+	private TableView<Donantes> tabla2;
+	@FXML
+	private TableColumn<Donantes,Integer> col_num_donante;
+	@FXML
+	private TableColumn<Donantes,String> col_nombre;
+	@FXML
+	private TableColumn<Donantes,String> col_apellido1;
+	@FXML
+	private TableColumn<Donantes,String> col_grupo_sanguineo;
 		
 	ObservableList<String> datos2 = FXCollections.observableArrayList("-------","SANGRE","AFERESIS");
 	ObservableList<Donacion> datos = FXCollections.observableArrayList();
+	ObservableList<Donantes> datos3 = FXCollections.observableArrayList();
+
 	
 	private boolean edicion;
 	private int indiceedicion;
@@ -100,6 +114,7 @@ public class PantallaDonacionesDos {
 		ControladoraBBDD conDonaciones = new ControladoraBBDD();
 
 		datos = conDonaciones.ConsultaDonaciones();
+		datos3 = conDonaciones.ConsultaDonantes();
     	String numero2= ""+numero+"";
     	
     	txtNum_donante.setText(numero2);
@@ -129,6 +144,13 @@ public class PantallaDonacionesDos {
 		col_volumen.setCellValueFactory(new PropertyValueFactory<Donacion,Integer>("volumen"));
 		col_fecha.setCellValueFactory(new PropertyValueFactory<Donacion,String>("fecha"));
 		
+		tabla2.setItems(datos3);
+		
+		col_num_donante.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("num_donante"));
+		col_nombre.setCellValueFactory(new PropertyValueFactory<Donantes,String>("nombre"));
+		col_apellido1.setCellValueFactory(new PropertyValueFactory<Donantes,String>("apellido1"));
+		col_grupo_sanguineo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("grupo_sanguineo"));
+		
 		edicion = false;
 		indiceedicion = 0;
 
@@ -140,7 +162,7 @@ public class PantallaDonacionesDos {
 	public void setProgramaPrincipal(Main ProgramaPrincipal) {
         this.ProgramaPrincipal = ProgramaPrincipal;
     }
-	public void closeWindow(){
+	public void cerrarVentan(ActionEvent event){
 		this.ProgramaPrincipal.mostrarVentanaPrincipal();
 		this.ventana.close();
 	}
@@ -187,9 +209,10 @@ public class PantallaDonacionesDos {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("OK!");
 					alert.setHeaderText("Modificación OK!");
-					alert.setContentText("¡Donante modificado con éxito!");
+					alert.setContentText("¡Donacion modificada con éxito!");
 					alert.showAndWait();
 
+					con.guardarRealiza(num_donante, num_donacion);
 					datos = con.ConsultaDonaciones();
 					tabla.setItems(datos);
 					break;
@@ -221,7 +244,8 @@ public class PantallaDonacionesDos {
 						alert.setHeaderText("Inserción OK!");
 						alert.setContentText("¡Donacion insertada con éxito!");
 						alert.showAndWait();
-						con.guardarRellena(num_donante, num_donacion);
+						
+						con.guardarRealiza(num_donante, num_donacion);
 
 						datos = con.ConsultaDonaciones();
 						tabla.setItems(datos);
@@ -264,7 +288,32 @@ public class PantallaDonacionesDos {
 		indiceedicion = 0;
 	}
 	public void Editar() throws SQLException{
+		
+		ControladoraBBDD con = new ControladoraBBDD();
 
+		int index = tabla.getSelectionModel().getSelectedIndex();
+
+		if( index >= 0){
+
+			edicion = true;
+			indiceedicion = index;
+
+			Donacion seleccionada = tabla.getSelectionModel().getSelectedItem();
+
+			int numeroSeleccionada = seleccionada.getNum_donacion();
+			int num_donante = con.consultarNumeroDonante(numeroSeleccionada);
+			System.out.println("Este es el numero donante"+num_donante);
+			
+			datos3 = con.ConsultaDonantes2(num_donante);
+			
+			tabla2.setItems(datos3);
+			
+			col_num_donante.setCellValueFactory(new PropertyValueFactory<Donantes,Integer>("num_donante"));
+			col_nombre.setCellValueFactory(new PropertyValueFactory<Donantes,String>("nombre"));
+			col_apellido1.setCellValueFactory(new PropertyValueFactory<Donantes,String>("apellido1"));
+			col_grupo_sanguineo.setCellValueFactory(new PropertyValueFactory<Donantes,String>("grupo_sanguineo"));
+						
+		}
 	
 	}
 }

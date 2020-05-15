@@ -73,6 +73,14 @@ public class Donantes {
 		this.grupo_sanguineo = grupo_sanguineo;
 	}
 
+	public Donantes(int num_donante2, String nombre2, String apellido12, String grupo_sanguineo2) {
+		// TODO Auto-generated constructor stub	
+		this.num_donante = num_donante;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.grupo_sanguineo = grupo_sanguineo;
+	}
+
 	public File getFile() {
 		return file;
 	}
